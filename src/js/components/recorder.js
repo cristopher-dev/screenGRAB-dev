@@ -105,8 +105,33 @@ export default class screenGRABorder {
     }
 
     this.elements.dropdownDefaultOption.textContent = selectedElement.innerText;
-    this.state.mime = selectedAttrValue;
+    
+    // Establecer el MIME type correcto para video
+    this.state.mime = this.getBestMimeType();
     return selectedAttrValue;
+  }
+
+  getBestMimeType() {
+    // Lista de MIME types ordenados por preferencia para grabaciones largas
+    const preferredMimeTypes = [
+      'video/webm;codecs=vp9,opus',     // VP9 es más eficiente para archivos grandes
+      'video/webm;codecs=vp8,opus',     // VP8 como fallback
+      'video/webm;codecs=h264,opus',    // H264 en WebM
+      'video/webm',                     // WebM genérico
+      'video/mp4;codecs=h264,aac',      // MP4 H264
+      'video/mp4'                       // MP4 genérico
+    ];
+
+    for (const mimeType of preferredMimeTypes) {
+      if (MediaRecorder.isTypeSupported(mimeType)) {
+        console.log(`Usando MIME type: ${mimeType}`);
+        return mimeType; // Devolver el MIME type completo
+      }
+    }
+
+    // Fallback si ninguno es compatible
+    console.warn('Ningún MIME type preferido es compatible, usando video/webm por defecto');
+    return 'video/webm';
   }
 
   async detectAvailableCameras() {
@@ -271,21 +296,90 @@ export default class screenGRABorder {
     }, MEDIA_RECORDER_CONFIG.TOAST_TIMEOUT);
   }
 
+  showCustomToast(message, variant = 'warning') {
+    // Clear any existing toast timeouts
+    if (this.toastTimeout) {
+      clearTimeout(this.toastTimeout);
+    }
+
+    // Set toast variant
+    this.elements.toast.className = ""; // Reset classes
+    this.elements.toast.classList.add(variant);
+    this.elements.toast.classList.add("active");
+
+    document.getElementById("desc").innerHTML = message;
+
+    // Handle close button click
+    const closeBtn = this.elements.toast.querySelector(".toast-close");
+    if (closeBtn) {
+      closeBtn.onclick = () => {
+        this.elements.toast.classList.add("closing");
+        setTimeout(() => {
+          this.elements.toast.classList.remove("active", "closing");
+        }, 300);
+      };
+    }
+
+    // Auto-close toast after timeout
+    this.toastTimeout = setTimeout(() => {
+      this.elements.toast.classList.remove("active");
+    }, MEDIA_RECORDER_CONFIG.TOAST_TIMEOUT);
+  }
+
   createRecorder(stream) {
     // the stream data is stored in this array
     let recordedChunks = [];
-    this.state.mediaRecorder = new MediaRecorder(stream);
+    let totalSize = 0; // Rastrear el tamaño total
+    
+    this.state.mediaRecorder = new MediaRecorder(stream, {
+      mimeType: this.state.mime
+    });
 
     this.state.mediaRecorder.ondataavailable = (e) => {
-      if (e.data.size > 0) {
+      if (e.data && e.data.size > 0) {
         recordedChunks.push(e.data);
+        totalSize += e.data.size;
+        
+        // Log periódico del progreso para grabaciones largas
+        if (recordedChunks.length % 50 === 0) {
+          console.log(`Grabación en progreso: ${recordedChunks.length} chunks, ${(totalSize / 1024 / 1024).toFixed(2)} MB`);
+          
+          // Forzar garbage collection si está disponible
+          if (window.gc && typeof window.gc === 'function') {
+            window.gc();
+          }
+        }
+        
+        // Advertencia si el archivo se está volviendo muy grande (>500MB)
+        if (totalSize > 500 * 1024 * 1024) {
+          console.warn('Grabación muy grande (>500MB), considere detener pronto para evitar problemas de memoria');
+          this.showCustomToast('Grabación muy larga detectada. Considere detener pronto.', 'warning');
+        }
+        
+        // Límite de seguridad para evitar que el navegador se cuelgue (1GB)
+        if (totalSize > 1024 * 1024 * 1024) {
+          console.error('Límite de memoria alcanzado, deteniendo grabación automáticamente');
+          this.stopRecording();
+          this.showCustomToast('Grabación detenida automáticamente por límite de memoria', 'error');
+        }
       }
     };
 
     this.state.mediaRecorder.onstop = () => {
+      console.log(`Grabación finalizada: ${recordedChunks.length} chunks, ${(totalSize / 1024 / 1024).toFixed(2)} MB total`);
+      
       if (this.state.isRecording) this.stopRecording();
+      
+      // Verificar que tenemos datos antes de procesar
+      if (recordedChunks.length === 0) {
+        console.error('No se grabaron datos');
+        handleRecorderError(new RecorderError('No se grabaron datos de video', ERROR_TYPES.PROCESSING));
+        return;
+      }
+      
       this.bakeVideo(recordedChunks);
       recordedChunks = [];
+      totalSize = 0;
     };
 
     // When stopping 'Tab Record' on Chrome browser by clicking 'Stop sharing' button, this gets fired instead of onstop event.
@@ -517,20 +611,60 @@ export default class screenGRABorder {
 
   bakeVideo(recordedChunks) {
     const blob = new Blob(recordedChunks, {
-      type: "video/" + this.state.mime,
+      type: this.state.mime, // Usar el MIME type completo
     });
+    
+    // Verificar que el blob tenga contenido
+    if (blob.size === 0) {
+      console.error('El blob está vacío, no se puede crear la descarga');
+      handleRecorderError(new RecorderError('No se pudo generar el video', ERROR_TYPES.PROCESSING));
+      return;
+    }
+    
     let savedName;
     if (this.state.filename == null || this.state.filename == "")
       savedName = this.getRandomString(15);
     else savedName = this.state.filename;
-    this.elements.download.href = URL.createObjectURL(blob);
-    this.elements.download.download = `${savedName}.mp4`;
+    
+    // Determinar la extensión correcta basada en el MIME type
+    const fileExtension = this.getFileExtensionFromMimeType(this.state.mime);
+    
+    // Crear URLs por separado para descarga y preview
+    const downloadUrl = URL.createObjectURL(blob);
+    const previewUrl = URL.createObjectURL(blob);
+    
+    this.elements.download.href = downloadUrl;
+    this.elements.download.download = `${savedName}.${fileExtension}`;
     this.elements.videoOpacitySheet.remove();
     this.elements.preview.autoplay = true;
     this.elements.preview.controls = true;
     this.elements.preview.muted = false;
-    this.elements.preview.src = URL.createObjectURL(blob);
-    URL.revokeObjectURL(blob); // clear from memory
+    this.elements.preview.src = previewUrl;
+    
+    // Agregar listener para limpiar URLs cuando ya no se necesiten
+    this.elements.download.addEventListener('click', () => {
+      setTimeout(() => {
+        URL.revokeObjectURL(downloadUrl);
+      }, 1000);
+    });
+    
+    // Limpiar URL del preview cuando se carge un nuevo video
+    this.elements.preview.addEventListener('loadstart', () => {
+      if (this.elements.preview.src !== previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    });
+  }
+
+  getFileExtensionFromMimeType(mimeType) {
+    if (mimeType.includes('video/mp4')) {
+      return 'mp4';
+    } else if (mimeType.includes('video/webm')) {
+      return 'webm';
+    } else {
+      // Fallback por defecto
+      return 'webm';
+    }
   }
 
   async startRecording() {
@@ -562,11 +696,9 @@ export default class screenGRABorder {
         return;
       }
 
-      let mimeType = "video/" + this.state.mime;
-
       this.state.filename = document.getElementById("filename").value;
       this.state.isRecording = true;
-      this.state.mediaRecorder = this.createRecorder(stream, mimeType);
+      this.state.mediaRecorder = this.createRecorder(stream);
       this.elements.preview.srcObject = stream;
       this.elements.preview.captureStream =
         this.elements.preview.captureStream ||
