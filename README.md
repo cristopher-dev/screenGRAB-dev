@@ -40,7 +40,7 @@ _The Most Powerful and Free Screen Recording Tool in the World_
 
 **📹 No time limits** | **💰 No hidden subscriptions** | **🚫 No annoying watermarks**
 
-### 🌐 **[» TRY IT NOW - IT'S FREE! «](https://screenrec.vercel.app)**
+### 🌐 **TRY IT NOW - IT'S FREE!**
 
 _You'll be recording like a pro in less than 10 seconds!_
 
@@ -112,7 +112,7 @@ In a world where **visual content is king**, you need a tool that doesn’t limi
 
 ## 🎯 **TRY IT NOW!**
 
-### 🌐 **[» LIVE DEMO - Click Here! «](https://screenrec.vercel.app)**
+### 🌐 **LIVE DEMO - Click Here!**
 
 _You'll be recording like a pro in less than 10 seconds!_
 
@@ -195,7 +195,7 @@ _You'll be recording like a pro in less than 10 seconds!_
 
 <div style="background: linear-gradient(90deg, #ff6b6b, #4ecdc4); padding: 20px; border-radius: 10px; margin: 20px 0;">
 
-### 🌐 **[🚀 START RECORDING NOW - IT'S FREE 🚀](https://screenrec.vercel.app)**
+### 🌐 **START RECORDING NOW - IT'S FREE**
 
 **⏰ Only takes 10 seconds | 💯 No registration | 🎬 Instant results**
 
@@ -332,14 +332,14 @@ Centralized state within each component:
 
 ```javascript
 this.state = {
-  mime: null,
-  mediaRecorder: null,
-  isRecording: false,
-  isPause: false,
-  filename: null,
-  selectedOption: null,
-  screenStream: null,
-  microphoneStream: null,
+   mime: null,
+   mediaRecorder: null,
+   isRecording: false,
+   isPause: false,
+   filename: null,
+   selectedOption: null,
+   screenStream: null,
+   microphoneStream: null,
 };
 ```
 
@@ -412,31 +412,31 @@ Git hooks for pre-commit checks.
 
 1. **🎯 Select your target**
 
-   - 🖥️ Full screen
-   - 🪟 Specific window
-   - 🌐 Browser tab
+    - 🖥️ Full screen
+    - 🪟 Specific window
+    - 🌐 Browser tab
 
 2. **🎵 Configure audio (optional)**
 
-   - 🔊 System audio
-   - 🎤 Personal microphone
-   - 🎭 Or both for maximum quality!
+    - 🔊 System audio
+    - 🎤 Personal microphone
+    - 🎭 Or both for maximum quality!
 
 3. **📝 Name your recording (optional)**
 
-   - Give it a custom name
-   - Or let us generate one automatically
+    - Give it a custom name
+    - Or let us generate one automatically
 
 4. **🎬 RECORD!**
 
-   - ⏺️ Start your recording
-   - ⏸️ Pause when needed
-   - ⏹️ Stop when finished
+    - ⏺️ Start your recording
+    - ⏸️ Pause when needed
+    - ⏹️ Stop when finished
 
 5. **📥 Instant download**
-   - The file downloads automatically
-   - MP4 format compatible everywhere
-   - Ready to share!
+    - The file downloads automatically
+    - MP4 format compatible everywhere
+    - Ready to share!
 
 ---
 
@@ -471,7 +471,7 @@ Git hooks for pre-commit checks.
 
 ### **Thousands are already using it... What are you waiting for?**
 
-#### 🌐 **[💎 GET FREE ACCESS NOW 💎](https://screenrec.vercel.app)**
+#### 🌐 **GET FREE ACCESS NOW**
 
 **✨ No tricks | 💯 No limits | 🎬 Professional results**
 
@@ -494,7 +494,7 @@ Join the community of creators who have already discovered the secret!**
 
 **Follow us for more awesome projects:**
 
-[![GitHub](https://img.shields.io/badge/GitHub-cristopher--dev-black?style=for-the-badge&logo=github)](https://github.com/cristopher-dev)
+![GitHub](https://img.shields.io/badge/GitHub-cristopher--dev-black?style=for-the-badge&logo=github)
 
 ---
 
@@ -503,3 +503,4 @@ Join the community of creators who have already discovered the secret!**
 _"The best tool is the one you don't have to pay for and that just works."_
 
 </div>
+
