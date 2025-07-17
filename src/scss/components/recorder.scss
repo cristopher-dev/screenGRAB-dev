@@ -98,7 +98,7 @@
           font-weight: 600;
           margin: 0;
           padding: 1rem 1rem;
-          border: 2px solid transparent;
+          border: 2px solid rgba(0, 0, 0, 0.1);
           border-radius: vars.$default-radius;
           outline: none;
           cursor: pointer;
@@ -122,6 +122,7 @@
             background: linear-gradient(135deg, vars.$lighter-grey 0%, color.adjust(vars.$light-grey, $lightness: -2%) 100%);
             box-shadow: vars.$shadow-md;
             transform: translateY(-1px);
+            border-color: rgba(0, 0, 0, 0.15);
           }
 
           span {
@@ -132,6 +133,21 @@
           &.toggled {
             border: 2px solid vars.$dark-purple;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+          }
+
+          body[data-theme="dark"] & {
+            background: linear-gradient(135deg, vars.$dark-grey 0%, vars.$darkest-grey 100%);
+            color: vars.$light-grey;
+            border-color: rgba(255, 255, 255, 0.2);
+
+            &:hover {
+              background: linear-gradient(135deg, color.adjust(vars.$dark-grey, $lightness: 5%) 0%, vars.$dark-grey 100%);
+              border-color: rgba(255, 255, 255, 0.3);
+            }
+
+            &.toggled {
+              border-color: vars.$primary;
+            }
           }
         }
 
@@ -347,11 +363,11 @@
           margin-bottom: 20px;
           width: 90%;
           max-width: 35rem;
-          background-color: vars.$light-grey;
-          color: vars.$grey;
+          background-color: vars.$white;
+          color: vars.$black;
           font-weight: 600;
           border-radius: vars.$default-radius;
-          border: none;
+          border: 2px solid rgba(0, 0, 0, 0.1);
           outline: none;
           visibility: hidden;
           opacity: 0;
@@ -360,6 +376,7 @@
           padding-bottom: 1.2rem;
           padding-left: 1rem;
           padding-right: 1rem;
+          transition: all 0.3s vars.$bezier-curve;
 
           &::placeholder {
             margin-left: 10px;
@@ -367,9 +384,29 @@
             color: vars.$grey;
           }
 
+          &:focus {
+            border-color: vars.$primary;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+          }
+
           &.visible {
             visibility: visible;
             opacity: 1;
+          }
+
+          body[data-theme="dark"] & {
+            background-color: vars.$dark-grey;
+            color: vars.$light-grey;
+            border-color: rgba(255, 255, 255, 0.2);
+
+            &::placeholder {
+              color: rgba(245, 245, 245, 0.7);
+            }
+
+            &:focus {
+              border-color: vars.$primary;
+              box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+            }
           }
         }
       }
@@ -390,28 +427,38 @@
           font-weight: 600;
           color: vars.$grey;
           font-size: 0.9rem;
+
+          body[data-theme="dark"] & {
+            color: vars.$light-grey;
+          }
         }
 
         &--select {
           width: 100%;
           padding: 1rem 1.2rem;
-          background-color: vars.$light-grey;
-          color: vars.$grey;
+          background-color: vars.$white;
+          color: vars.$black;
           font-weight: 600;
           border-radius: vars.$default-radius;
-          border: none;
+          border: 2px solid rgba(0, 0, 0, 0.1);
           outline: none;
           cursor: pointer;
           appearance: none;
-          background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+          background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23525252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
           background-repeat: no-repeat;
           background-position: right 1rem center;
           background-size: 1rem;
           padding-right: 3rem;
+          transition: all 0.3s vars.$bezier-curve;
 
           option {
-            background-color: vars.$light-grey;
-            color: vars.$grey;
+            background-color: vars.$white;
+            color: vars.$black;
+          }
+
+          &:focus {
+            border-color: vars.$primary;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
           }
 
           &:disabled {
@@ -422,10 +469,17 @@
           body[data-theme="dark"] & {
             background-color: vars.$dark-grey;
             color: vars.$light-grey;
+            border-color: rgba(255, 255, 255, 0.2);
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
 
             option {
               background-color: vars.$dark-grey;
               color: vars.$light-grey;
+            }
+
+            &:focus {
+              border-color: vars.$primary;
+              box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
             }
           }
         }
@@ -447,28 +501,38 @@
           font-weight: 600;
           color: vars.$grey;
           font-size: 0.9rem;
+
+          body[data-theme="dark"] & {
+            color: vars.$light-grey;
+          }
         }
 
         &--select {
           width: 100%;
           padding: 1rem 1.2rem;
-          background-color: vars.$light-grey;
-          color: vars.$grey;
+          background-color: vars.$white;
+          color: vars.$black;
           font-weight: 600;
           border-radius: vars.$default-radius;
-          border: none;
+          border: 2px solid rgba(0, 0, 0, 0.1);
           outline: none;
           cursor: pointer;
           appearance: none;
-          background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+          background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23525252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
           background-repeat: no-repeat;
           background-position: right 1rem center;
           background-size: 1rem;
           padding-right: 3rem;
+          transition: all 0.3s vars.$bezier-curve;
 
           option {
-            background-color: vars.$light-grey;
-            color: vars.$grey;
+            background-color: vars.$white;
+            color: vars.$black;
+          }
+
+          &:focus {
+            border-color: vars.$primary;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
           }
 
           &:disabled {
@@ -479,10 +543,17 @@
           body[data-theme="dark"] & {
             background-color: vars.$dark-grey;
             color: vars.$light-grey;
+            border-color: rgba(255, 255, 255, 0.2);
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
 
             option {
               background-color: vars.$dark-grey;
               color: vars.$light-grey;
+            }
+
+            &:focus {
+              border-color: vars.$primary;
+              box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
             }
           }
         }
