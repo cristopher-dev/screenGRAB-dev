@@ -45,6 +45,7 @@ export default class ScreenRecorder {
       pauseAndResume: document.getElementById("pauseAndResume"),
       preview: document.querySelector("#preview"),
       download: document.querySelector("#download"),
+      recordAgain: document.querySelector("#recordAgain"),
       recordingName: document.querySelector("#filename"),
       mimeChoiceWrapper: document.querySelector(".sh__choice"),
       videoWrapper: document.querySelector(".sh__video--wrp"),
@@ -292,7 +293,41 @@ export default class ScreenRecorder {
     this.elements.pauseAndResume.classList.remove("visible");
     this.elements.recordingName.classList.remove("visible");
     this.elements.download.classList.add("visible");
+    this.elements.recordAgain.classList.add("visible");
     this.appendStatusNotification("stop");
+  }
+
+  resetToInitialState() {
+    // Reset state
+    this.state.isRecording = false;
+    this.state.isPause = false;
+    this.state.mediaRecorder = null;
+    this.state.screenStream = null;
+    this.state.microphoneStream = null;
+    this.state.filename = null;
+
+    // Reset UI elements
+    this.elements.preview.srcObject = null;
+    this.elements.preview.src = "";
+    this.elements.preview.classList.remove("visible");
+    this.elements.headerText.classList.remove("is-recording", "is-reviewing");
+    this.elements.mimeChoiceWrapper.classList.remove("hide");
+    this.elements.download.classList.remove("visible");
+    this.elements.recordAgain.classList.remove("visible");
+    this.elements.recordingName.classList.remove("visible");
+    this.elements.stop.classList.remove("visible");
+    this.elements.pauseAndResume.classList.remove("visible", "resume", "pause");
+
+    // Clear download link
+    this.elements.download.href = "";
+    this.elements.download.download = "";
+
+    // Clear filename input
+    this.elements.recordingName.value = "";
+
+    // Reset dropdown selection
+    this.state.selectedOption = null;
+    this.elements.dropdownDefaultOption.textContent = "¿Qué quieres grabar?";
   }
 
   init() {
@@ -327,6 +362,10 @@ export default class ScreenRecorder {
 
     this.elements.stop.addEventListener("click", () => {
       if (this.state.isRecording) this.stopRecording();
+    });
+
+    this.elements.recordAgain.addEventListener("click", () => {
+      this.resetToInitialState();
     });
   }
 }
