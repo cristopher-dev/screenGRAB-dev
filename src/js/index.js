@@ -1,4 +1,4 @@
-import ScreenRecorder from "./components/recorder";
+import screenGRABorder from "./components/recorder";
 import ThemeToggler from "./components/themeToggler";
 import { handleMobileUsers } from "./utils/handleMobileUsers";
 import { initializeUIEnhancements } from "./utils/uiEnhancements";
@@ -12,15 +12,15 @@ window.addEventListener("load", () => {
   }, 100);
 });
 
-const screenRec = {};
+const screenGRAB = {};
 
 // Instancias
-screenRec.recorder = ScreenRecorder.getInstance();
-screenRec.theme = ThemeToggler.getInstance();
+screenGRAB.recorder = screenGRABorder.getInstance();
+screenGRAB.theme = ThemeToggler.getInstance();
 
 // Inicialización
-screenRec.recorder.init();
-screenRec.theme.init();
+screenGRAB.recorder.init();
+screenGRAB.theme.init();
 
 // Añadir smooth scroll para mejor UX
 document.documentElement.style.scrollBehavior = 'smooth';

@@ -1,6 +1,6 @@
 {
-  "name": "ScreenREC",
-  "short_name": "ScreenREC",
+  "name": "screenGRAB",
+  "short_name": "screenGRAB",
   "icons": [
     {
       "src": "./android-chrome-192x192.png",

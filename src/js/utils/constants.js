@@ -21,7 +21,7 @@ export const RECORDING_OPTIONS = {
 };
 
 // Theme storage key
-export const LOCAL_STORAGE_KEY = "screenREC-color-scheme";
+export const LOCAL_STORAGE_KEY = "screenGRAB-color-scheme";
 
 // Media recorder configuration
 export const MEDIA_RECORDER_CONFIG = {

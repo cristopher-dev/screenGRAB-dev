@@ -12,10 +12,10 @@ import {
   handleRecorderError,
 } from "../utils/errorHandler";
 
-export default class ScreenRecorder {
+export default class screenGRABorder {
   constructor() {
-    if (ScreenRecorder.instance) {
-      throw new Error("Use ScreenRecorder.getInstance() instead of new");
+    if (screenGRABorder.instance) {
+      throw new Error("Use screenGRABorder.getInstance() instead of new");
     }
 
     this.elements = this.initializeElements();
@@ -42,10 +42,10 @@ export default class ScreenRecorder {
   }
 
   static getInstance() {
-    if (!ScreenRecorder.instance) {
-      ScreenRecorder.instance = new ScreenRecorder();
+    if (!screenGRABorder.instance) {
+      screenGRABorder.instance = new screenGRABorder();
     }
-    return ScreenRecorder.instance;
+    return screenGRABorder.instance;
   }
 
   initializeElements() {
