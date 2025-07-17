@@ -346,6 +346,69 @@
         }
       }
 
+      &__recording-time {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1rem;
+        padding: 0.5rem 1.5rem;
+        background: rgba(220, 38, 127, 0.1);
+        border: 2px solid vars.$accent;
+        border-radius: 25px;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s vars.$bezier-curve;
+
+        &--text {
+          font-family: 'Courier New', monospace;
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: vars.$accent;
+          letter-spacing: 1px;
+          
+          @include mq(md) {
+            font-size: 1rem;
+          }
+        }
+
+        &.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        &.recording {
+          animation: pulse-recording 2s ease-in-out infinite;
+        }
+
+        &.paused {
+          animation: pulse-paused 1.5s ease-in-out infinite;
+          background: rgba(255, 165, 0, 0.1);
+          border-color: vars.$warning;
+          
+          .sh__recording-time--text {
+            color: vars.$warning;
+          }
+        }
+      }
+
+      @keyframes pulse-recording {
+        0%, 100% {
+          box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+        }
+        50% {
+          box-shadow: 0 0 0 8px rgba(220, 38, 38, 0);
+        }
+      }
+
+      @keyframes pulse-paused {
+        0%, 100% {
+          box-shadow: 0 0 0 0 rgba(255, 165, 0, 0.4);
+        }
+        50% {
+          box-shadow: 0 0 0 6px rgba(255, 165, 0, 0);
+        }
+      }
+
       &__choice {
         width: 100%;
         display: flex;

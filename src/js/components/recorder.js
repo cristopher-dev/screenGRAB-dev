@@ -37,6 +37,9 @@ export default class screenGRABorder {
       screenVideo: null,
       cameraVideo: null,
       audioContext: null,
+      recordingStartTime: null,
+      recordingTimer: null,
+      recordingDuration: 0,
     };
     this.toastTimeout = null;
   }
@@ -73,6 +76,8 @@ export default class screenGRABorder {
       cameraSelect: document.getElementById("camera-select"),
       microphoneSelector: document.querySelector(".sh__microphone-selector"),
       microphoneSelect: document.getElementById("microphone-select"),
+      recordingTime: document.getElementById("recording-time"),
+      recordingTimeText: document.querySelector(".sh__recording-time--text"),
     };
   }
 
@@ -270,6 +275,68 @@ export default class screenGRABorder {
       );
     }
     return result;
+  }
+
+  formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  startRecordingTimer() {
+    this.state.recordingStartTime = Date.now();
+    this.state.recordingDuration = 0;
+    
+    // Mostrar el indicador de tiempo
+    this.elements.recordingTime.classList.add('visible', 'recording');
+    
+    this.state.recordingTimer = setInterval(() => {
+      if (!this.state.isPause) {
+        this.state.recordingDuration = Math.floor((Date.now() - this.state.recordingStartTime) / 1000);
+        this.elements.recordingTimeText.textContent = this.formatTime(this.state.recordingDuration);
+      }
+    }, 1000);
+  }
+
+  pauseRecordingTimer() {
+    // Pausar el timer pero mantener el tiempo actual
+    if (this.state.recordingTimer) {
+      clearInterval(this.state.recordingTimer);
+      this.state.recordingTimer = null;
+    }
+    
+    // Cambiar animación para indicar pausa
+    this.elements.recordingTime.classList.remove('recording');
+    this.elements.recordingTime.classList.add('paused');
+  }
+
+  resumeRecordingTimer() {
+    // Reanudar el timer desde donde se pausó
+    this.state.recordingStartTime = Date.now() - (this.state.recordingDuration * 1000);
+    
+    this.state.recordingTimer = setInterval(() => {
+      this.state.recordingDuration = Math.floor((Date.now() - this.state.recordingStartTime) / 1000);
+      this.elements.recordingTimeText.textContent = this.formatTime(this.state.recordingDuration);
+    }, 1000);
+    
+    // Restaurar animación de grabación
+    this.elements.recordingTime.classList.remove('paused');
+    this.elements.recordingTime.classList.add('recording');
+  }
+
+  stopRecordingTimer() {
+    if (this.state.recordingTimer) {
+      clearInterval(this.state.recordingTimer);
+      this.state.recordingTimer = null;
+    }
+    
+    // Ocultar el indicador de tiempo
+    this.elements.recordingTime.classList.remove('visible', 'recording', 'paused');
+    
+    // Log del tiempo total de grabación
+    console.log(`Grabación completada. Duración total: ${this.formatTime(this.state.recordingDuration)}`);
   }
 
   getNotificationConfig(actionType) {
@@ -687,6 +754,7 @@ export default class screenGRABorder {
       });
       
       console.log(`Blob creado: ${(blob.size / 1024 / 1024).toFixed(2)} MB, tipo: ${blob.type}`);
+      console.log(`Duración total de grabación: ${this.formatTime(this.state.recordingDuration)}`);
       
       // Verificar que el blob se creó correctamente
       if (blob.size === 0) {
@@ -810,6 +878,10 @@ export default class screenGRABorder {
       this.elements.preview.classList.add("visible");
       this.elements.pauseAndResume.classList.add("visible");
       this.elements.stop.classList.add("visible");
+      
+      // Iniciar el timer de grabación
+      this.startRecordingTimer();
+      
       this.appendStatusNotification("start");
     } catch (error) {
       const recorderError = new RecorderError(
@@ -825,6 +897,10 @@ export default class screenGRABorder {
   pauseRecording() {
     this.state.mediaRecorder.pause();
     this.state.isPause = true;
+    
+    // Pausar el timer
+    this.pauseRecordingTimer();
+    
     this.appendStatusNotification("pause");
     this.elements.pauseAndResume.classList.add("resume");
     this.elements.pauseAndResume.classList.remove("pause");
@@ -833,6 +909,10 @@ export default class screenGRABorder {
   resumeRecording() {
     this.state.mediaRecorder.resume();
     this.state.isPause = false;
+    
+    // Reanudar el timer
+    this.resumeRecordingTimer();
+    
     this.appendStatusNotification("resume");
     this.elements.pauseAndResume.classList.remove("resume");
     this.elements.pauseAndResume.classList.add("pause");
@@ -873,6 +953,10 @@ export default class screenGRABorder {
 
     this.state.isRecording = false;
     if (!isInactive) this.state.mediaRecorder.stop(); // prevents program from stopping the mediaRecorder twice, causing app to crash on chrome browser
+    
+    // Detener el timer de grabación
+    this.stopRecordingTimer();
+    
     this.elements.preview.srcObject = null;
     this.elements.headerText.classList.remove("is-recording");
     this.elements.headerText.classList.add("is-reviewing");
@@ -898,6 +982,14 @@ export default class screenGRABorder {
     this.state.filename = null;
     this.state.selectedCameraId = null;
     this.state.selectedMicrophoneId = null;
+    this.state.recordingStartTime = null;
+    this.state.recordingDuration = 0;
+
+    // Limpiar el timer de grabación
+    if (this.state.recordingTimer) {
+      clearInterval(this.state.recordingTimer);
+      this.state.recordingTimer = null;
+    }
 
     // Close AudioContext if it exists
     if (this.state.audioContext) {
