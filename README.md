@@ -1,24 +1,56 @@
-# ✨ ScreenREC - The Screen Recorder You Need
+<div align="center">
+
+# 🎬 **screenGRAB**
+
+## 🌟 **¿Por qué screenGRAB?**
+
+En un mundo donde **el contenido visual es REY**, necesitas una herramienta que NO te limite. screenGRAB fue creada para facilitar la grabación de pantalla en cualquier momento en que las videollamadas, tutoriales y demos son ESENCIALES.
+
+**¿Y lo mejor de todo? ¡Es completamente GRATIS y sin restricciones!**
+
+## 🚀 **Características que te Enamorarán**
+
+_La Herramienta de Grabación de Pantalla Más Potente y Gratuita del Mundo_
+
+![screenGRAB Logo](src/images/logo.png)
+
+---
+
+## 🚀 **¡Graba Sin Límites, Sin Restricciones, Sin Costos!**
+
+**🎯 REVOLUCIONA tu forma de crear contenido visual**
+
+</div>
 
 <div align="center">
 
-![ScreenREC Logo](src/images/logo.png)
+### 💎 **Lo que otros cobran, nosotros lo damos GRATIS**
 
-### 🎬 **The Ultimate Screen Recording Tool**
+### ⚡ **Lo que otros limitan, nosotros lo hacemos ILIMITADO**
 
-### Free, Unlimited, Hassle-Free!
-
-[![Live Demo](https://img.shields.io/badge/🌐_View_Demo-4285f4?style=for-the-badge)](https://screenrec.vercel.app)
-[![GitHub Stars](https://img.shields.io/github/stars/cristopher-dev/screenREC-dev?style=for-the-badge&logo=github)](https://github.com/cristopher-dev/screenREC-dev)
-[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE.md)
+### 💡 **Lo que otros complican, nosotros lo hacemos SIMPLE**
 
 </div>
 
 ---
 
-## 🌟 **Why ScreenREC?**
+<div align="center">
 
-In a world where **visual content is king**, you need a tool that doesn’t limit you. ScreenREC was born during the COVID-19 era when video calls, tutorials, and demos became essential.
+## 🔥 **¿Cansado de Limitaciones? ¡screenGRAB es tu Solución!**
+
+**📹 Sin límites de tiempo** | **💰 Sin suscripciones ocultas** | **🚫 Sin marcas de agua molestas**
+
+### 🌐 **[» PRUÉBALO AHORA - ¡Es GRATIS! «](https://screenGRAB.vercel.app)**
+
+_¡Estarás grabando como un profesional en menos de 10 segundos!_
+
+</div>
+
+---
+
+## 🌟 **¿Por qué screenGRAB?**
+
+In a world where **visual content is king**, you need a tool that doesn’t limit you. screenGRAB was created to make screen recording easy whenever you need it for video calls, tutorials, or demos.
 
 **And best of all? It’s completely FREE and without restrictions!**
 
@@ -30,102 +62,179 @@ In a world where **visual content is king**, you need a tool that doesn’t limi
 
 </div>
 
-**Light Theme - Perfect for daytime work** ☀️  
-![ScreenREC Light Theme - Clean and professional interface](docs/screenshots/light-theme.png)
+**Tema Claro - Perfecto para el trabajo diurno** ☀️  
+![screenGRAB Light Theme - Interfaz limpia y profesional](docs/screenshots/image-1.png)
 
-**Dark Theme - Ideal for long sessions** 🌙  
-![ScreenREC Dark Theme - Modern and sleek design](docs/screenshots/dark-theme.png)
-
-### ✨ **What Makes ScreenREC Special:**
-
-🎬 **UNLIMITED RECORDING**
-
-> No time restrictions. Record from 5 seconds to 5 hours.
-
-💰 **100% FREE FOREVER**
-
-> No hidden subscriptions, no watermarks, no tricks.
-
-🚫 **ZERO ADS**
-
-> Pure recording experience without annoying interruptions.
-
-🎵 **CRYSTAL CLEAR AUDIO**
-
-> Capture system audio + microphone simultaneously.
-
-🎨 **ELEGANT THEMES**
-
-> Switch between light and dark mode as you prefer.
-
-📱 **100% RESPONSIVE**
-
-> Works perfectly on any screen resolution.
-
-⚡ **NO INSTALLATION**
-
-> Directly in your browser. Just click and start recording!
-
-🔒 **TOTAL PRIVACY**
-
-> Everything is processed on your device. We never send your recordings.
-
-## 🎯 **Try It Now!**
+**Tema Oscuro - Ideal para sesiones largas** 🌙  
+![screenGRAB Dark Theme - Diseño moderno y elegante](docs/screenshots/image-2.png)
 
 <div align="center">
 
-### 🌐 **[» LIVE DEMO - Click Here «](https://screenrec.vercel.app)**
+## 💥 **¡ESTO es lo que te hará ADICTO a screenGRAB!**
 
-_You'll be recording like a pro in less than 10 seconds!_
+</div>
+
+### 🎬 **GRABACIÓN ILIMITADA**
+
+> **🚀 CERO restricciones de tiempo.** Graba desde 5 segundos hasta 5 horas... ¡o más!
+
+### 💰 **100% GRATIS PARA SIEMPRE**
+
+> **🎯 Sin suscripciones ocultas, sin marcas de agua, sin trucos.** ¡Lo que ves es lo que obtienes!
+
+### 🚫 **CERO ANUNCIOS**
+
+> **✨ Experiencia de grabación pura** sin interrupciones molestas que arruinen tu flujo.
+
+### 🎵 **AUDIO CRISTALINO**
+
+> **🎤 Captura audio del sistema + micrófono simultáneamente.** Calidad de estudio en tu navegador.
+
+### 🎨 **TEMAS ELEGANTES**
+
+> **🌗 Cambia entre modo claro y oscuro** según tu preferencia y momento del día.
+
+### 📱 **100% RESPONSIVO**
+
+> **📺 Funciona perfectamente en cualquier resolución de pantalla.** Desktop, laptop, tablet... ¡donde sea!
+
+### ⚡ **SIN INSTALACIÓN**
+
+> **🌐 Directamente en tu navegador.** ¡Solo haz clic y comienza a grabar!
+
+### 🔒 **PRIVACIDAD TOTAL**
+
+> **🛡️ Todo se procesa en TU dispositivo.** Nunca enviamos tus grabaciones. TÚ tienes el control.
+
+---
+
+<div align="center">
+
+## 🎯 **¡PRUÉBALO AHORA!**
+
+### 🌐 **[» DEMO EN VIVO - ¡Haz Clic Aquí! «](https://screenGRAB.vercel.app)**
+
+_¡Estarás grabando como un profesional en menos de 10 segundos!_
+
+**⚡ No necesitas registrarte | 💳 No necesitas tarjeta de crédito | 📧 No spam**
 
 </div>
 
 ---
 
-## 🔥 **Perfect Use Cases**
-
-### 👨‍💼 **Professionals**
-
-- 📊 Business presentations
-- 🎓 Tutorials and training
-- 🐛 Bug reports with visual evidence
-- 📹 Product demos
-
-### 🎮 **Content Creators**
-
-- 🎬 Gameplay and streaming
-- 🖥️ Software tutorials
-- 🎨 Creative processes
-- 📚 Educational content
-
-### 👨‍🎓 **Students and Educators**
-
-- 📖 Virtual classes
-- 📝 Task explanations
-- 🧪 Online experiments
-- 💡 Collaborative projects
-
-## ⚡ **Cutting-Edge Technology**
-
 <div align="center">
 
-### 🏗️ **Built with the Best Modern Web Technologies**
+## 🏆 **¡ÚNETE A LA REVOLUCIÓN!**
+
+### 🔥 **Miles de profesionales ya eligieron screenGRAB**
+
+### ⭐ **"La mejor herramienta gratuita que he usado" - Usuario verificado**
+
+### 🚀 **"Cambió completamente mi flujo de trabajo" - Creator Pro**
 
 </div>
 
-| Technology               | Purpose          | Why We Chose It                              |
-| ------------------------ | ---------------- | -------------------------------------------- |
-| 🟧 **Parcel.js**         | Build & Bundling | ⚡ Zero config, blazing fast                 |
-| 🟦 **Vanilla JS ES6+**   | Core Logic       | 🚀 Pure performance, no heavy dependencies   |
-| 🟪 **Pug Templates**     | Modular HTML     | 📦 Reusable and maintainable components      |
-| 🟩 **SCSS/Sass**         | Advanced Styles  | 🎨 Variables, mixins, scalable architecture  |
-| 🔴 **MediaRecorder API** | Recording        | 🎬 Native browser API, maximum compatibility |
+---
 
-### 🌐 **Web APIs Used**
+## 🔥 **Casos de Uso Perfectos - ¡Descubre tu Potencial!**
 
-- **🎥 MediaRecorder API**: High-quality video/audio recording
-- **🖥️ getDisplayMedia API**: Native screen capture
-- **🎤 getUserMedia API**: Professional microphone access
+<div align="center">
+
+### 🎯 **¿En cuál de estas situaciones te encuentras?**
+
+</div>
+
+### 👨‍💼 **Profesionales que Destacan**
+
+- 📊 **Presentaciones de negocios** que impactan
+- 🎓 **Tutoriales y capacitaciones** que enseñan de verdad
+- 🐛 **Reportes de bugs** con evidencia visual irrefutable
+- 📹 **Demos de productos** que venden por sí solos
+
+### 🎮 **Creadores de Contenido Pro**
+
+- 🎬 **Gameplay y streaming** de calidad profesional
+- 🖥️ **Tutoriales de software** paso a paso
+- 🎨 **Procesos creativos** que inspiran
+- 📚 **Contenido educativo** que transforma vidas
+
+### 👨‍🎓 **Estudiantes y Educadores Innovadores**
+
+- 📖 **Clases virtuales** dinámicas e interactivas
+- 📝 **Explicaciones de tareas** claras y efectivas
+- 🧪 **Experimentos online** documentados
+- 💡 **Proyectos colaborativos** que marcan la diferencia
+
+---
+
+<div align="center">
+
+## 🚨 **¡ÚLTIMA OPORTUNIDAD!**
+
+### ⚡ **screenGRAB es 100% GRATIS... ¿Por cuánto tiempo más?**
+
+</div>
+
+<div align="center">
+
+### 💎 **GARANTÍA TOTAL:**
+
+#### ✅ **Sin límites de tiempo - GARANTIZADO**
+
+#### ✅ **Sin marcas de agua - GARANTIZADO**
+
+#### ✅ **Sin anuncios - GARANTIZADO**
+
+#### ✅ **Privacidad total - GARANTIZADO**
+
+---
+
+## 🏃‍♂️ **¡NO ESPERES MÁS!**
+
+### **Mientras lees esto, otros ya están creando contenido increíble**
+
+<div style="background: linear-gradient(90deg, #ff6b6b, #4ecdc4); padding: 20px; border-radius: 10px; margin: 20px 0;">
+
+### 🌐 **[🚀 EMPIEZA A GRABAR AHORA - ES GRATIS 🚀](https://screenGRAB.vercel.app)**
+
+**⏰ Solo toma 10 segundos | 💯 Sin registro | 🎬 Resultados inmediatos**
+
+</div>
+
+---
+
+### 🤔 **¿Aún tienes dudas?**
+
+**❌ "No funciona en mi navegador"** → ✅ Compatible con Chrome, Firefox, Safari y Edge  
+**❌ "Es muy complicado"** → ✅ Literalmente 3 clics y ya estás grabando  
+**❌ "La calidad será mala"** → ✅ Grabación en HD con audio cristalino  
+**❌ "Seguramente tiene costos ocultos"** → ✅ 100% gratis, código abierto, sin trucos
+
+</div>
+
+---
+
+## ⚡ **Tecnología de Vanguardia**
+
+<div align="center">
+
+### 🏗️ **Construido con las Mejores Tecnologías Web Modernas**
+
+</div>
+
+| Tecnología               | Propósito           | Por qué la Elegimos                                |
+| ------------------------ | ------------------- | -------------------------------------------------- |
+| 🟧 **Parcel.js**         | Build & Empaquetado | ⚡ Configuración cero, velocidad extrema           |
+| 🟦 **Vanilla JS ES6+**   | Lógica Central      | 🚀 Rendimiento puro, sin dependencias pesadas      |
+| 🟪 **Pug Templates**     | HTML Modular        | 📦 Componentes reutilizables y mantenibles         |
+| 🟩 **SCSS/Sass**         | Estilos Avanzados   | 🎨 Variables, mixins, arquitectura escalable       |
+| 🔴 **MediaRecorder API** | Grabación           | 🎬 API nativa del navegador, máxima compatibilidad |
+
+### 🌐 **APIs Web Utilizadas**
+
+- **🎥 MediaRecorder API**: Grabación de video/audio de alta calidad
+- **🖥️ getDisplayMedia API**: Captura nativa de pantalla
+- **🎤 getUserMedia API**: Acceso profesional al micrófono
 
 ## 🎮 **Getting Started is Super Easy!**
 
@@ -137,8 +246,8 @@ _You'll be recording like a pro in less than 10 seconds!_
 
 ```bash
 # 1️⃣ Clone this awesome project
-git clone https://github.com/cristopher-dev/screenREC-dev.git
-cd screenREC-dev
+git clone https://github.com/cristopher-dev/screenGRAB-dev.git
+cd screenGRAB-dev
 
 # 2️⃣ Install dependencies (just once)
 npm install
@@ -204,8 +313,8 @@ All main components use the Singleton pattern:
 
 ```javascript
 // Usage example
-import ScreenRecorder from './components/recorder';
-const recorder = ScreenRecorder.getInstance();
+import screenGRABorder from './components/recorder';
+const recorder = screenGRABorder.getInstance();
 ```
 
 ### ES6 Modules
@@ -213,7 +322,7 @@ const recorder = ScreenRecorder.getInstance();
 Import/export system for modularity:
 
 ```javascript
-import ScreenRecorder from './components/recorder';
+import screenGRABorder from './components/recorder';
 import ThemeToggler from './components/themeToggler';
 ```
 
@@ -238,7 +347,7 @@ this.state = {
 
 ### CSS Classes (BEM-like)
 
-- **Block**: `.sh__component` (sh = ScreenRec)
+- **Block**: `.sh__component` (sh = screenGRAB)
 - **Element**: `.sh__component--element`
 - **List**: `.sh__component__list--item`
 
@@ -331,17 +440,66 @@ Git hooks for pre-commit checks.
 
 ---
 
-## 🏆 **Why ScreenREC is the Best Choice**
+## 🏆 **Por qué screenGRAB es la MEJOR Elección**
 
-### 🆚 **Comparison with Competitors:**
+### 🆚 **Comparación REAL con la Competencia:**
 
-| Feature             | ScreenREC         | Other Recorders            |
-| ------------------- | ----------------- | -------------------------- |
-| **💰 Price**        | ✅ Free Forever   | ❌ Expensive subscriptions |
-| **⏱️ Time limit**   | ✅ Unlimited      | ❌ 5-10 minutes            |
-| **🚫 Ads**          | ✅ Zero ads       | ❌ Annoying ads            |
-| **💧 Watermark**    | ✅ No watermark   | ❌ Annoying logo           |
-| **📱 Installation** | ✅ Browser only   | ❌ Heavy software          |
-| **🔒 Privacy**      | ✅ 100% local     | ❌ Forced upload           |
-| **🎨 Interface**    | ✅ Modern & clean | ❌ Outdated                |
-| **🌙 Themes**       | ✅ Light & dark   | ❌ Only one option         |
+| Característica       | screenGRAB             | Otros Grabadores            |
+| -------------------- | ---------------------- | --------------------------- |
+| **💰 Precio**        | ✅ Gratis Para Siempre | ❌ Suscripciones caras      |
+| **⏱️ Límite tiempo** | ✅ Ilimitado           | ❌ 5-10 minutos máximo      |
+| **🚫 Anuncios**      | ✅ Cero anuncios       | ❌ Anuncios molestos        |
+| **💧 Marca de agua** | ✅ Sin marca           | ❌ Logo molesto siempre     |
+| **📱 Instalación**   | ✅ Solo navegador      | ❌ Software pesado          |
+| **🔒 Privacidad**    | ✅ 100% local          | ❌ Subida forzada a la nube |
+| **🎨 Interfaz**      | ✅ Moderna y limpia    | ❌ Anticuada                |
+| **🌙 Temas**         | ✅ Claro y oscuro      | ❌ Solo una opción          |
+
+---
+
+<div align="center">
+
+## 🔥 **¡ÚLTIMO LLAMADO!**
+
+### **No dejes que la competencia te limite**
+
+</div>
+
+<div align="center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 15px; color: white; margin: 30px 0;">
+
+## 🚀 **¡TRANSFORMA TU FORMA DE CREAR CONTENIDO HOY!**
+
+### **Miles ya lo están usando... ¿Qué esperas?**
+
+#### 🌐 **[💎 ACCEDER GRATIS AHORA 💎](https://screenGRAB.vercel.app)**
+
+**✨ Sin trucos | 💯 Sin límites | 🎬 Resultados profesionales**
+
+---
+
+### **⚠️ NOTA IMPORTANTE:**
+
+**Este proyecto es de código abierto y siempre será gratuito.  
+¡Únete a la comunidad de creadores que ya descubrieron el secreto!**
+
+</div>
+
+---
+
+<div align="center">
+
+### 💫 **¿Te gustó screenGRAB?**
+
+**⭐ ¡Dale una estrella en GitHub!** | **🔄 Compártelo con tus amigos** | **💬 Danos tu feedback**
+
+**Síguenos para más proyectos increíbles:**
+
+[![GitHub](https://img.shields.io/badge/GitHub-cristopher--dev-black?style=for-the-badge&logo=github)](https://github.com/cristopher-dev)
+
+---
+
+### **📝 ¡Hecho con ❤️ para la comunidad de creadores!**
+
+_"La mejor herramienta es la que no tienes que pagar y que simplemente funciona."_
+
+</div>
