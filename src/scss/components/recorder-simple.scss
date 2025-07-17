@@ -1,0 +1,100 @@
+@use "../utils/variables" as vars;
+@use "../utils/breakpoints" as *;
+@use "../utils/fluid-type" as *;
+@use "sass:color";
+
+.sh {
+  &__recorder {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+    position: relative;
+
+    // Fondo con gradiente sutil
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(
+        ellipse at top,
+        rgba(99, 102, 241, 0.05) 0%,
+        transparent 50%
+      );
+      pointer-events: none;
+    }
+
+    .sh {
+      &__wrp {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      &__logo {
+        position: absolute;
+        left: 2rem;
+        top: 2rem;
+        width: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: inherit;
+        transform: scale(0.9);
+        transition: all 0.4s vars.$spring-curve;
+        z-index: 10;
+
+        @include mq(md) {
+          position: relative;
+          left: auto;
+          top: auto;
+          width: 100%;
+          transform: scale(0.8);
+          margin-bottom: 2rem;
+        }
+
+        // Hover effect para mejor interactividad
+        &:hover {
+          transform: scale(0.95);
+          
+          @include mq(md) {
+            transform: scale(0.85);
+          }
+        }
+
+        &--img {
+          img {
+            width: 100%;
+            max-width: 16vw;
+            transform: scale(1);
+            filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.15));
+            transition: filter 0.3s vars.$bezier-curve;
+
+            @include mq(md) {
+              max-width: 12vw;
+            }
+
+            @include mq(sm) {
+              max-width: 20vw;
+            }
+          }
+        }
+
+        &--text {
+          margin: 0;
+          margin-left: 1rem;
+          font-weight: 900;
+          background: vars.$accent-gradient;
+          background-clip: text;

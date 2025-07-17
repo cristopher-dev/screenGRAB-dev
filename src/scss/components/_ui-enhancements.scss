@@ -1,0 +1,213 @@
+// Estilos adicionales para las mejoras de UI/UX
+@use "../utils/variables" as vars;
+
+// Efecto ripple para botones
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(0);
+  animation: ripple-animation 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+// Estados mejorados para el dropdown
+.sh__dropdown--btn {
+  &.selected {
+    background: vars.$success-gradient;
+    color: vars.$white;
+    border-color: vars.$success;
+    animation: selection-success 0.6s vars.$spring-curve;
+  }
+
+  &.loading {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+}
+
+@keyframes selection-success {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// Estados de error para inputs
+.sh__choice--filename {
+  &.error {
+    border-color: vars.$error;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    animation: shake 0.5s ease-in-out;
+  }
+
+  &.focused {
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+// Tooltip de error
+.error-tooltip {
+  position: absolute;
+  bottom: -2rem;
+  left: 0;
+  background: vars.$error;
+  color: vars.$white;
+  padding: 0.25rem 0.5rem;
+  border-radius: vars.$small-radius;
+  font-size: 0.75rem;
+  display: none;
+  z-index: 1000;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 10px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid vars.$error;
+  }
+}
+
+// Estados de loading para botones
+.sh__btn {
+  &.loading {
+    position: relative;
+    color: transparent !important;
+    
+    .spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 1rem;
+      height: 1rem;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top: 2px solid vars.$white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  }
+
+  &.hovered {
+    filter: brightness(1.05);
+  }
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+// Mejoras para indicadores de progreso
+.progress-indicator {
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 2s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+// Estados de focus mejorados
+.sh__dropdown--btn:focus-visible,
+.sh__choice--filename:focus-visible,
+.sh__btn:focus-visible {
+  outline: 2px solid vars.$primary;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+// Animaciones de entrada
+.fade-in-up {
+  animation: fadeInUp 0.6s vars.$bezier-curve;
+}
+
+.scale-in {
+  animation: scaleIn 0.4s vars.$spring-curve;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// Mejoras responsive
+@media (max-width: 768px) {
+  .sh__dropdown__list--item {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .error-tooltip {
+    font-size: 0.7rem;
+    bottom: -1.5rem;
+  }
+  
+  .ripple {
+    animation-duration: 0.8s;
+  }
+}
+
+// Estados de tema oscuro
+body[data-theme="dark"] {
+  .ripple {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .error-tooltip {
+    background: vars.$error;
+    
+    &::before {
+      border-bottom-color: vars.$error;
+    }
+  }
+
+  .sh__btn.loading .spinner {
+    border-color: rgba(255, 255, 255, 0.3);
+    border-top-color: vars.$white;
+  }
+}

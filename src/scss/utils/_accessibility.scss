@@ -1,0 +1,49 @@
+// Estilos de accesibilidad
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Estados de focus mejorados para todos los elementos interactivos
+*:focus-visible {
+  outline: 2px solid vars.$primary;
+  outline-offset: 2px;
+  border-radius: vars.$small-radius;
+}
+
+// Mejoras de contraste
+@media (prefers-contrast: high) {
+  .sh__dropdown--btn,
+  .sh__choice--filename,
+  .sh__btn {
+    border-width: 3px;
+  }
+  
+  .sh__dropdown__list--item:hover {
+    background: vars.$darkest-grey;
+    color: vars.$white;
+  }
+}
+
+// Respeto por las preferencias de movimiento reducido
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .pulse {
+    animation: none !important;
+  }
+}

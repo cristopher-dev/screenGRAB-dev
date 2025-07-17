@@ -1,39 +1,55 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 
-$main-font: "Poppins", sans-serif;
-
-$black: #000000; // Add this line to define the black color
+// Paleta de colores moderna y accesible
+$black: #000000;
 $white: #ffffff;
-$darkest-grey: #2e2e2e;
-$dark-grey: #494949;
-$grey: #6b7280;
-$light-grey: #f3f4f6;
-$dark-purple: #4838d2;
-$purple: #2ad0a6;
-$green: #10b981;
-/*#2ad0a6;*/
-$orange: #de00fc;
-$light-red: #e5312d;
-$red: #c62628;
-$light-orange: #5cd9e4;
+$darkest-grey: #1a1a1a;
+$dark-grey: #2d2d2d;
+$grey: #64748b;
+$light-grey: #f8fafc;
+$lighter-grey: #f1f5f9;
+
+// Colores de acento modernos
+$primary: #6366f1; // Indigo moderno
+$primary-light: #818cf8;
+$primary-dark: #4f46e5;
+$secondary: #06b6d4; // Cyan
+$accent: #f59e0b; // Amber
+$success: #10b981;
+$warning: #f59e0b;
+$error: #ef4444;
+
+// Colores específicos de la app
+$dark-purple: $primary;
+$purple: $secondary;
+$green: $success;
+$orange: $accent;
+$light-red: #fecaca;
+$red: $error;
+$light-orange: #fed7aa;
 
 $bg-light-color: $white;
 $bg-dark-color: $darkest-grey;
 $font-color: $dark-grey;
 
-// Updated main gradient with smoother transitions and better color harmony
+// Gradientes modernos y vibrantes
 $main-gradient: linear-gradient(
-  to right,
-  $dark-purple 0%,
-  #6366f1 15%,
-  #7c3aed 30%,
-  #c026d3 50%,
-  $orange 70%,
-  #06b6d4 85%,
-  $purple 100%
+  135deg,
+  #667eea 0%,
+  #764ba2 25%,
+  #f093fb 50%,
+  #f5576c 75%,
+  #4facfe 100%
 );
 
-$green-gradient: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+$accent-gradient: linear-gradient(135deg, $primary 0%, $secondary 100%);
+$success-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+$warm-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+
+$green-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+$red-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+
+// Configuración responsive
 $breakpoints: (
   ll: 1450px,
   lg: 1024px,
@@ -42,18 +58,28 @@ $breakpoints: (
 ) !default;
 $max-width: 1440px;
 
+// Espaciado
 $mobile-side-padding: 1.5rem;
 $side-padding: 2rem;
+$section-padding: 4rem;
 
-$red-gradient: linear-gradient(to right, #cb356b, #bd3f32);
+// Bordes y sombras
+$default-radius: 0.75rem;
+$large-radius: 1rem;
+$small-radius: 0.5rem;
 
-// Sizes
-$default-radius: 0.5rem;
+// Sombras modernas
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
-// Animations
+// Animaciones mejoradas
 $bezier-curve: cubic-bezier(0.4, 0, 0.2, 1);
+$spring-curve: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+$ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-// Typography
+// Tipografía
 $main-font: "Inter", sans-serif;
 
 // Make all variables available with !default flag

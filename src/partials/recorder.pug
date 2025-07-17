@@ -1,45 +1,89 @@
 section.sh__recorder
     .sh__wrp
-        a(class="sh__logo")
+        a(class="sh__logo" href="#" aria-label="ScreenREC - Inicio")
             picture(class="sh__logo--img")
                 source(srcset="images/logo.png?as=avif&width=400" type="image/avif")
                 source(srcset="images/logo.png?as=webp&width=400" type="image/webp")
                 source(srcset="images/logo.png?width=400" type="image/png")
-                img(src="images/logo.png?width=400" alt="test image")
+                img(src="images/logo.png?width=400" alt="ScreenREC Logo")
             h1.sh__logo--text Screen 
                span REC 
                sup βeta
 
-        .sh__header
-            h2.sh__header--title.outro
-                span Your video is ready to be exported
-            h2.sh__header--title.recording
-                span You are currently <span class="red--text">recording</span>
-            h2.sh__header--title.intro
-                span A simple web screen recorder
+        header.sh__header
+            h2.sh__header--title.outro(aria-live="polite")
+                span Tu video está listo para exportar
+            h2.sh__header--title.recording(aria-live="polite")
+                span Estás grabando actualmente
+            h2.sh__header--title.intro(aria-live="polite")
+                span Un grabador de pantalla web simple y elegante
 
         .sh__choice
-            .sh__dropdown
-                button(type="button" class="sh__dropdown--btn")
-                    img(class="sh__dropdown--icon camera" src=`./images/camera.svg`)
-                    span(class="sh__dropdown--defaultOption") What do you want to record?
-                    img(class="sh__dropdown--icon chevron" src=`./images/chevron-down.svg`)
-                ul.sh__dropdown__list
-                    li(class="sh__dropdown__list--item" data-value="screen") Record your Screen Just
-                    li(class="sh__dropdown__list--item" data-value="screen-mic") Record your Screen with Audio
+            .sh__dropdown(role="combobox" aria-expanded="false" aria-haspopup="listbox")
+                button(type="button" class="sh__dropdown--btn" aria-label="Seleccionar tipo de grabación" aria-describedby="dropdown-help")
+                    img(class="sh__dropdown--icon camera" src="./images/camera.svg" alt="" aria-hidden="true")
+                    span(class="sh__dropdown--defaultOption") ¿Qué quieres grabar?
+                    img(class="sh__dropdown--icon chevron" src="./images/chevron-down.svg" alt="" aria-hidden="true")
+                
+                ul.sh__dropdown__list(role="listbox" aria-labelledby="dropdown-label")
+                    li.sh__dropdown__list--item(role="option" data-value="screen" tabindex="-1") 
+                        | Grabar solo tu pantalla
+                    li.sh__dropdown__list--item(role="option" data-value="screen-mic" tabindex="-1") 
+                        | Grabar pantalla con audio
 
-            input(type="text" class="sh__choice--filename" id="filename" placeholder="Name your recording" autocomplete="off")
-            button(type="button" class="sh__btn record" id="start")
-                span.pulse
-                span I’m ready to record
+            label.sr-only(for="filename") Nombre de la grabación
+            input(
+                type="text" 
+                class="sh__choice--filename" 
+                id="filename" 
+                placeholder="Nombra tu grabación (opcional)" 
+                autocomplete="off"
+                aria-describedby="filename-help"
+            )
+            
+            button(type="button" class="sh__btn record" id="start" aria-describedby="record-help")
+                span.pulse(aria-hidden="true")
+                span ¡Listo para grabar!
 
+        .sh__video--wrp(role="region" aria-label="Vista previa de video")
+            .sh__video--sheet(aria-hidden="true")
+            video(
+                class="sh__video" 
+                id="preview" 
+                width="100%" 
+                height="100%" 
+                autoplay 
+                muted
+                aria-label="Vista previa de la grabación"
+            )
+            
+            button(
+                class="sh__btn sh__video--btn1 pause" 
+                id="pauseAndResume"
+                aria-label="Pausar o reanudar grabación"
+                title="Pausar/Reanudar"
+            )
+                img(src="./images/pause.svg" alt="" aria-hidden="true")
+            
+            button(
+                class="sh__btn sh__video--btn" 
+                id="stop"
+                aria-label="Detener grabación"
+                title="Detener"
+            )
+                img(src="./images/stop.svg" alt="" aria-hidden="true")
 
-        .sh__video--wrp
-            .sh__video--sheet
-            video(class="sh__video" id="preview" width="100%" height="100%" autoplay muted)
-            button(class="sh__btn sh__video--btn1 pause" id="pauseAndResume")
-            button(class="sh__btn sh__video--btn" id="stop")
+            a(
+                class="sh__btn sh__download-btn" 
+                id="download"
+                aria-label="Descargar video grabado"
+                title="Descargar video"
+            )
+                img(class="sh__download-btn--icon" src="./images/download.svg" alt="" aria-hidden="true")
+                span.sh__download-btn--text Guardar tu Video
 
-            a(class="sh__btn sh__download-btn" id="download")
-                img(class="sh__download-btn--icon" src=`./images/download.svg`)
-                span(class="sh__download-btn--text") Save your Video
+        // Textos de ayuda para lectores de pantalla
+        .sr-only
+            p#dropdown-help Usa las flechas arriba/abajo para navegar y Enter para seleccionar
+            p#filename-help El nombre es opcional. Si no lo especificas, se generará automáticamente
+            p#record-help Asegúrate de seleccionar qué tipo de grabación deseas antes de comenzar

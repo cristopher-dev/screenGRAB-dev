@@ -2,14 +2,18 @@
 @use "../utils/breakpoints" as *;
 @use "sass:color";
 
-// Toast animations with improved transitions
+// Toast animations with improved spring transitions
 @keyframes toast-in {
   from {
-    transform: translateX(110%) scale(0.95);
+    transform: translateX(110%) scale(0.9);
     opacity: 0;
   }
-  20% {
+  60% {
+    transform: translateX(-10px) scale(1.02);
     opacity: 1;
+  }
+  80% {
+    transform: translateX(5px) scale(0.99);
   }
   to {
     transform: translateX(0) scale(1);
@@ -22,12 +26,12 @@
     transform: translateX(0) scale(1);
     opacity: 1;
   }
-  30% {
-    opacity: 1;
-    transform: translateX(0) scale(0.98);
+  20% {
+    transform: translateX(10px) scale(0.98);
+    opacity: 0.8;
   }
   to {
-    transform: translateX(110%) scale(0.95);
+    transform: translateX(110%) scale(0.9);
     opacity: 0;
   }
 }
@@ -35,9 +39,11 @@
 @keyframes fade-in {
   from {
     opacity: 0;
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
