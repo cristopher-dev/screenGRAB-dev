@@ -1,13 +1,14 @@
 section.sh__recorder
+    a(class="sh__logo" href="#" aria-label="ScreenREC - Home")
+        picture(class="sh__logo--img")
+            source(srcset="images/logo.png?as=avif&width=400" type="image/avif")
+            source(srcset="images/logo.png?as=webp&width=400" type="image/webp")
+            source(srcset="images/logo.png?width=400" type="image/png")
+            img(src="images/logo.png?width=400" alt="ScreenREC Logo")
+        h1.sh__logo--text Screen 
+           span GRAB 
+    
     .sh__wrp
-        a(class="sh__logo" href="#" aria-label="ScreenREC - Home")
-            picture(class="sh__logo--img")
-                source(srcset="images/logo.png?as=avif&width=400" type="image/avif")
-                source(srcset="images/logo.png?as=webp&width=400" type="image/webp")
-                source(srcset="images/logo.png?width=400" type="image/png")
-                img(src="images/logo.png?width=400" alt="ScreenREC Logo")
-            h1.sh__logo--text Screen 
-               span GRAB 
 
         header.sh__header
             h2.sh__header--title.outro(aria-live="polite")
