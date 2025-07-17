@@ -100,6 +100,10 @@
     border-left-color: vars.$orange;
   }
 
+  &.info {
+    border-left-color: vars.$primary;
+  }
+
   #img {
     width: 48px;
     height: 48px;

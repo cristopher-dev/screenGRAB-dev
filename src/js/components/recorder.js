@@ -5,12 +5,17 @@ import {
   AUDIO_CONFIG,
   VIDEO_CONFIG,
   MICROPHONE_CONFIG,
+  VIDEO_MIME_TYPES,
+  FILE_EXTENSIONS,
+  COMPATIBILITY_WARNINGS,
+  CONVERSION_MESSAGES,
 } from "../utils/constants";
 import {
   RecorderError,
   ERROR_TYPES,
   handleRecorderError,
 } from "../utils/errorHandler";
+import VideoConverter from "../utils/videoConverter";
 
 export default class screenGRABorder {
   constructor() {
@@ -42,6 +47,7 @@ export default class screenGRABorder {
       recordingDuration: 0,
     };
     this.toastTimeout = null;
+    this.videoConverter = VideoConverter.getInstance();
   }
 
   static getInstance() {
@@ -117,19 +123,21 @@ export default class screenGRABorder {
   }
 
   getBestMimeType() {
-    // Lista de MIME types ordenados por preferencia para grabaciones largas
+    // Lista de MIME types ordenados por compatibilidad con reproductores estándar
     const preferredMimeTypes = [
-      // Priorizar formatos más estables para grabaciones largas
-      'video/webm;codecs=vp8,opus',     // VP8 es más estable que VP9
-      'video/webm;codecs=vp9,opus',     // VP9 solo si VP8 no está disponible
-      'video/webm',                     // WebM genérico
-      'video/mp4;codecs=h264,aac',      // MP4 H264 (más compatible)
-      'video/mp4'                       // MP4 genérico
+      // Priorizar MP4 para máxima compatibilidad con Windows Media Player
+      VIDEO_MIME_TYPES.MP4_H264,              // MP4 H264 (más compatible con Windows)
+      VIDEO_MIME_TYPES.MP4_H264_BASELINE,     // H.264 baseline profile
+      VIDEO_MIME_TYPES.MP4_GENERIC,           // MP4 genérico
+      VIDEO_MIME_TYPES.WEBM_VP8,              // VP8 es más estable que VP9
+      VIDEO_MIME_TYPES.WEBM_VP9,              // VP9 solo si VP8 no está disponible
+      VIDEO_MIME_TYPES.WEBM_GENERIC,          // WebM genérico
     ];
 
     for (const mimeType of preferredMimeTypes) {
       if (MediaRecorder.isTypeSupported(mimeType)) {
         console.log(`Usando MIME type: ${mimeType}`);
+        this.logFormatInfo(mimeType);
         return mimeType;
       }
     }
@@ -148,7 +156,20 @@ export default class screenGRABorder {
 
     // Último recurso - usar el que esté disponible
     console.error('No se encontró ningún MIME type compatible');
-    return 'video/webm'; // Fallback final
+    return VIDEO_MIME_TYPES.WEBM_GENERIC; // Fallback final
+  }
+
+  logFormatInfo(mimeType) {
+    const baseType = mimeType.split(';')[0];
+    const extension = this.getFileExtensionFromMimeType(mimeType);
+    
+    console.info(`📹 Formato seleccionado: ${baseType} → .${extension}`);
+    
+    if (baseType.includes('mp4')) {
+      console.info('✅ Alta compatibilidad con reproductores de Windows');
+    } else if (baseType.includes('webm')) {
+      console.warn('⚠️ Compatibilidad limitada con Windows Media Player. Se recomienda VLC.');
+    }
   }
 
   async detectAvailableCameras() {
@@ -728,7 +749,7 @@ export default class screenGRABorder {
     return canvasStream;
   }
 
-  bakeVideo(recordedChunks) {
+  async bakeVideo(recordedChunks) {
     console.log(`Procesando video: ${recordedChunks.length} chunks`);
     console.log(`MIME type para blob: ${this.state.mime}`);
     
@@ -748,33 +769,90 @@ export default class screenGRABorder {
     }
 
     try {
-      // Crear el blob con el MIME type correcto
-      const blob = new Blob(recordedChunks, {
+      // Crear el blob inicial con el MIME type original
+      const originalBlob = new Blob(recordedChunks, {
         type: this.state.mime
       });
       
-      console.log(`Blob creado: ${(blob.size / 1024 / 1024).toFixed(2)} MB, tipo: ${blob.type}`);
+      console.log(`Blob original creado: ${(originalBlob.size / 1024 / 1024).toFixed(2)} MB, tipo: ${originalBlob.type}`);
       console.log(`Duración total de grabación: ${this.formatTime(this.state.recordingDuration)}`);
       
       // Verificar que el blob se creó correctamente
-      if (blob.size === 0) {
+      if (originalBlob.size === 0) {
         console.error('El blob resultante está vacío');
         handleRecorderError(new RecorderError('Error al procesar el video', ERROR_TYPES.PROCESSING));
         return;
       }
       
+      let finalBlob = originalBlob;
+      let fileExtension = this.getFileExtensionFromMimeType(this.state.mime);
+      let wasConverted = false;
+
+      // Verificar si necesita conversión
+      if (this.videoConverter.needsConversion(this.state.mime)) {
+        try {
+          console.log('🔄 Video WebM detectado, iniciando conversión automática a MP4...');
+          
+          // Mostrar mensaje de carga de FFmpeg
+          this.showCustomToast(CONVERSION_MESSAGES.LOADING_FFMPEG, 'info');
+          
+          // Precargar FFmpeg (esto mostrará progreso)
+          await this.videoConverter.loadFFmpeg();
+          
+          // Mostrar mensaje de conversión
+          this.showCustomToast(CONVERSION_MESSAGES.CONVERTING, 'active');
+          
+          // Convertir el video con callback de progreso
+          const conversionResult = await this.videoConverter.convertIfNeeded(
+            originalBlob, 
+            this.state.mime,
+            (progress) => {
+              console.log(`Progreso conversión: ${(progress.progress * 100).toFixed(1)}%`);
+              this.showCustomToast(
+                `<div style="font-size: 14px; line-height: 1.5;">
+                  <strong>⚡ Convirtiendo video</strong><br>
+                  Progreso: ${(progress.progress * 100).toFixed(1)}%<br>
+                  Tiempo procesado: ${progress.time.toFixed(1)}s
+                </div>`, 
+                'active'
+              );
+            }
+          );
+          
+          finalBlob = conversionResult.blob;
+          fileExtension = conversionResult.extension;
+          wasConverted = conversionResult.wasConverted;
+          
+          if (wasConverted) {
+            console.log('✅ Conversión exitosa a MP4');
+            this.showCustomToast(CONVERSION_MESSAGES.CONVERSION_SUCCESS, 'success');
+          }
+          
+        } catch (conversionError) {
+          console.warn('⚠️ Error en la conversión automática:', conversionError);
+          
+          // Si falla la conversión, usar el video original y mostrar advertencia
+          this.showCustomToast(CONVERSION_MESSAGES.CONVERSION_FAILED, 'warning');
+          
+          // Mostrar la advertencia de compatibilidad original
+          setTimeout(() => {
+            this.showCompatibilityWarning();
+          }, 4000);
+        }
+      }
+      
+      // Generar nombre de archivo
       let savedName;
       if (this.state.filename == null || this.state.filename == "")
         savedName = this.getRandomString(15);
       else savedName = this.state.filename;
       
-      // Determinar la extensión correcta basada en el MIME type
-      const fileExtension = this.getFileExtensionFromMimeType(this.state.mime);
-      console.log(`Extensión de archivo: ${fileExtension}`);
+      console.log(`Extensión de archivo final: ${fileExtension}`);
+      console.log(`Video convertido: ${wasConverted ? 'Sí' : 'No'}`);
       
       // Crear URLs por separado para descarga y preview
-      const downloadUrl = URL.createObjectURL(blob);
-      const previewUrl = URL.createObjectURL(blob);
+      const downloadUrl = URL.createObjectURL(finalBlob);
+      const previewUrl = URL.createObjectURL(finalBlob);
       
       // Configurar la descarga
       this.elements.download.href = downloadUrl;
@@ -793,7 +871,7 @@ export default class screenGRABorder {
         setTimeout(() => {
           URL.revokeObjectURL(downloadUrl);
           console.log('URL de descarga limpiada');
-        }, 2000); // Dar más tiempo para la descarga
+        }, 2000);
         this.elements.download.removeEventListener('click', downloadHandler);
       };
       
@@ -813,7 +891,7 @@ export default class screenGRABorder {
       console.log('Video procesado exitosamente');
       
     } catch (error) {
-      console.error('Error al crear el blob de video:', error);
+      console.error('Error al procesar el video:', error);
       handleRecorderError(new RecorderError('Error al procesar el video: ' + error.message, ERROR_TYPES.PROCESSING));
     }
   }
@@ -822,18 +900,28 @@ export default class screenGRABorder {
     // Extraer el tipo principal sin los codecs
     const baseType = mimeType.split(';')[0].toLowerCase();
     
-    if (baseType === 'video/mp4') {
-      return 'mp4';
-    } else if (baseType === 'video/webm') {
-      return 'webm';
-    } else if (baseType.includes('mp4')) {
+    // Usar el mapeo de FILE_EXTENSIONS
+    if (FILE_EXTENSIONS[baseType]) {
+      return FILE_EXTENSIONS[baseType];
+    }
+    
+    // Fallbacks para casos no estándar
+    if (baseType.includes('mp4')) {
       return 'mp4';
     } else if (baseType.includes('webm')) {
       return 'webm';
     } else {
-      // Fallback seguro
-      console.warn(`Tipo MIME desconocido: ${mimeType}, usando webm como fallback`);
-      return 'webm';
+      // Fallback seguro hacia MP4 para mejor compatibilidad
+      console.warn(`Tipo MIME desconocido: ${mimeType}, usando mp4 como fallback`);
+      return 'mp4';
+    }
+  }
+
+  showCompatibilityWarning() {
+    // Solo mostrar la advertencia una vez por sesión y solo para WebM sin conversión
+    if (!sessionStorage.getItem('webm-warning-shown')) {
+      this.showCustomToast(COMPATIBILITY_WARNINGS.WEBM_WINDOWS, 'warning');
+      sessionStorage.setItem('webm-warning-shown', 'true');
     }
   }
 
@@ -997,6 +1085,11 @@ export default class screenGRABorder {
       this.state.audioContext = null;
     }
 
+    // Limpiar recursos del convertidor de video
+    if (this.videoConverter) {
+      this.videoConverter.cleanup();
+    }
+
     // Reset UI elements
     this.elements.preview.srcObject = null;
     this.elements.preview.src = "";
@@ -1026,6 +1119,20 @@ export default class screenGRABorder {
   }
 
   init() {
+    // Mostrar mensaje informativo sobre la nueva funcionalidad (solo una vez)
+    if (!sessionStorage.getItem('conversion-feature-shown')) {
+      setTimeout(() => {
+        this.showCustomToast(`
+          <div style="font-size: 14px; line-height: 1.5;">
+            <strong>🎉 Nueva funcionalidad</strong><br>
+            Los videos WebM ahora se convierten automáticamente<br>
+            a MP4 para compatibilidad total con Windows
+          </div>
+        `, 'success');
+        sessionStorage.setItem('conversion-feature-shown', 'true');
+      }, 2000);
+    }
+
     this.elements.dropdownToggle.addEventListener("click", () => {
       this.toggleDropdown();
     });
