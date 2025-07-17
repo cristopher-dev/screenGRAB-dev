@@ -37,6 +37,11 @@ section.sh__recorder
                 select(id="camera-select" class="sh__camera-selector--select")
                     option(value="" disabled selected) Detectando cámaras...
 
+            .sh__microphone-selector(style="display: none;")
+                label(for="microphone-select" class="sh__microphone-selector--label") Selecciona tu micrófono:
+                select(id="microphone-select" class="sh__microphone-selector--select")
+                    option(value="" disabled selected) Detectando micrófonos...
+
             input(
                 type="text" 
                 class="sh__choice--filename" 

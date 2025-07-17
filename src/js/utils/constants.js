@@ -55,3 +55,12 @@ export const CAMERA_CONFIG = {
     facingMode: "user"
   }
 };
+
+// Microphone configuration
+export const MICROPHONE_CONFIG = {
+  DEFAULT: {
+    echoCancellation: true,
+    noiseSuppression: true,
+    sampleRate: 44100,
+  }
+};

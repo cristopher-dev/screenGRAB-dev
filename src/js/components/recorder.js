@@ -4,7 +4,7 @@ import {
   MEDIA_RECORDER_CONFIG,
   AUDIO_CONFIG,
   VIDEO_CONFIG,
-  CAMERA_CONFIG,
+  MICROPHONE_CONFIG,
 } from "../utils/constants";
 import {
   RecorderError,
@@ -27,7 +27,9 @@ export default class ScreenRecorder {
       filename: null,
       selectedOption: null,
       selectedCameraId: null,
+      selectedMicrophoneId: null,
       availableCameras: [],
+      availableMicrophones: [],
       screenStream: null,
       microphoneStream: null,
       cameraStream: null,
@@ -69,6 +71,8 @@ export default class ScreenRecorder {
       toast: document.getElementById("toast"),
       cameraSelector: document.querySelector(".sh__camera-selector"),
       cameraSelect: document.getElementById("camera-select"),
+      microphoneSelector: document.querySelector(".sh__microphone-selector"),
+      microphoneSelect: document.getElementById("microphone-select"),
     };
   }
 
@@ -91,8 +95,13 @@ export default class ScreenRecorder {
     // Show camera selector if screen-camera option is selected
     if (selectedAttrValue === RECORDING_OPTIONS.SCREEN_CAMERA) {
       this.showCameraSelector();
+      this.showMicrophoneSelector();
+    } else if (selectedAttrValue === RECORDING_OPTIONS.SCREEN_MIC) {
+      this.hideCameraSelector();
+      this.showMicrophoneSelector();
     } else {
       this.hideCameraSelector();
+      this.hideMicrophoneSelector();
     }
 
     this.elements.dropdownDefaultOption.textContent = selectedElement.innerText;
@@ -108,6 +117,18 @@ export default class ScreenRecorder {
       return videoDevices;
     } catch (error) {
       console.error('Error detecting cameras:', error);
+      return [];
+    }
+  }
+
+  async detectAvailableMicrophones() {
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const audioDevices = devices.filter(device => device.kind === 'audioinput');
+      this.state.availableMicrophones = audioDevices;
+      return audioDevices;
+    } catch (error) {
+      console.error('Error detecting microphones:', error);
       return [];
     }
   }
@@ -145,6 +166,39 @@ export default class ScreenRecorder {
     });
   }
 
+  async populateMicrophoneOptions() {
+    const microphones = await this.detectAvailableMicrophones();
+    const select = this.elements.microphoneSelect;
+    
+    // Clear existing options
+    select.innerHTML = '';
+    
+    if (microphones.length === 0) {
+      const option = document.createElement('option');
+      option.value = '';
+      option.textContent = 'No se encontraron micrófonos';
+      option.disabled = true;
+      select.appendChild(option);
+      return;
+    }
+    
+    // Add default option
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'Selecciona un micrófono';
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    select.appendChild(defaultOption);
+    
+    // Add microphone options
+    microphones.forEach((microphone, index) => {
+      const option = document.createElement('option');
+      option.value = microphone.deviceId;
+      option.textContent = microphone.label || `Micrófono ${index + 1}`;
+      select.appendChild(option);
+    });
+  }
+
   showCameraSelector() {
     this.elements.cameraSelector.style.display = 'block';
     this.elements.cameraSelector.classList.add('visible');
@@ -155,6 +209,18 @@ export default class ScreenRecorder {
     this.elements.cameraSelector.style.display = 'none';
     this.elements.cameraSelector.classList.remove('visible');
     this.state.selectedCameraId = null;
+  }
+
+  showMicrophoneSelector() {
+    this.elements.microphoneSelector.style.display = 'block';
+    this.elements.microphoneSelector.classList.add('visible');
+    this.populateMicrophoneOptions();
+  }
+
+  hideMicrophoneSelector() {
+    this.elements.microphoneSelector.style.display = 'none';
+    this.elements.microphoneSelector.classList.remove('visible');
+    this.state.selectedMicrophoneId = null;
   }
 
   getRandomString(length) {
@@ -238,9 +304,19 @@ export default class ScreenRecorder {
         audio: AUDIO_CONFIG,
       });
 
-      const microphoneStream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-      });
+      // Use selected microphone or default
+      const microphoneConstraints = this.state.selectedMicrophoneId
+        ? {
+            audio: {
+              deviceId: { exact: this.state.selectedMicrophoneId },
+              ...MICROPHONE_CONFIG.DEFAULT
+            }
+          }
+        : { audio: MICROPHONE_CONFIG.DEFAULT };
+
+      console.log('Usando micrófono:', this.state.selectedMicrophoneId || 'por defecto', 'Constraints:', microphoneConstraints);
+      
+      const microphoneStream = await navigator.mediaDevices.getUserMedia(microphoneConstraints);
 
       // Check if we have audio tracks to work with
       const screenAudioTracks = screenStream.getAudioTracks();
@@ -373,10 +449,60 @@ export default class ScreenRecorder {
     // Get the canvas stream
     const canvasStream = canvas.captureStream(30); // 30 FPS
 
-    // Add audio from screen stream if available
-    const screenAudioTracks = screenStream.getAudioTracks();
-    if (screenAudioTracks.length > 0) {
-      screenAudioTracks.forEach(track => canvasStream.addTrack(track));
+    // Handle audio - combine screen audio with selected microphone if available
+    if (this.state.selectedMicrophoneId) {
+      try {
+        // Get microphone stream with selected device
+        const microphoneConstraints = {
+          audio: {
+            deviceId: { exact: this.state.selectedMicrophoneId },
+            ...MICROPHONE_CONFIG.DEFAULT
+          }
+        };
+        
+        const microphoneStream = await navigator.mediaDevices.getUserMedia(microphoneConstraints);
+        
+        // Get audio tracks
+        const screenAudioTracks = screenStream.getAudioTracks();
+        const microphoneAudioTracks = microphoneStream.getAudioTracks();
+
+        // If we have both audio sources, mix them
+        if (screenAudioTracks.length > 0 || microphoneAudioTracks.length > 0) {
+          this.state.audioContext = new AudioContext();
+          const destination = this.state.audioContext.createMediaStreamDestination();
+
+          // Connect screen audio if available
+          if (screenAudioTracks.length > 0) {
+            const screenSource = this.state.audioContext.createMediaStreamSource(screenStream);
+            screenSource.connect(destination);
+          }
+
+          // Connect microphone audio if available
+          if (microphoneAudioTracks.length > 0) {
+            const microphoneSource = this.state.audioContext.createMediaStreamSource(microphoneStream);
+            microphoneSource.connect(destination);
+          }
+
+          // Add mixed audio to canvas stream
+          destination.stream.getAudioTracks().forEach(track => canvasStream.addTrack(track));
+        }
+
+        // Store microphone stream for cleanup
+        this.state.microphoneStream = microphoneStream;
+      } catch (error) {
+        console.warn('Failed to get selected microphone, using screen audio only:', error);
+        // Fallback to screen audio only
+        const screenAudioTracks = screenStream.getAudioTracks();
+        if (screenAudioTracks.length > 0) {
+          screenAudioTracks.forEach(track => canvasStream.addTrack(track));
+        }
+      }
+    } else {
+      // Use screen audio only
+      const screenAudioTracks = screenStream.getAudioTracks();
+      if (screenAudioTracks.length > 0) {
+        screenAudioTracks.forEach(track => canvasStream.addTrack(track));
+      }
     }
 
     // Store references for cleanup
@@ -409,6 +535,21 @@ export default class ScreenRecorder {
 
   async startRecording() {
     try {
+      // Validate required selections based on recording option
+      if (this.state.selectedOption === RECORDING_OPTIONS.SCREEN_MIC) {
+        if (!this.state.selectedMicrophoneId) {
+          throw new Error('Debe seleccionar un micrófono antes de grabar con audio');
+        }
+      } else if (this.state.selectedOption === RECORDING_OPTIONS.SCREEN_CAMERA) {
+        if (!this.state.selectedCameraId) {
+          throw new Error('Debe seleccionar una cámara antes de grabar con cámara');
+        }
+        // Microphone is optional for screen + camera, but show warning if not selected
+        if (!this.state.selectedMicrophoneId) {
+          console.warn('No se ha seleccionado micrófono. Solo se grabará el audio del sistema.');
+        }
+      }
+
       let stream;
       if (this.state.selectedOption === RECORDING_OPTIONS.SCREEN) {
         stream = await this.recordScreen();
@@ -522,6 +663,7 @@ export default class ScreenRecorder {
     this.state.cameraVideo = null;
     this.state.filename = null;
     this.state.selectedCameraId = null;
+    this.state.selectedMicrophoneId = null;
 
     // Close AudioContext if it exists
     if (this.state.audioContext) {
@@ -541,8 +683,9 @@ export default class ScreenRecorder {
     this.elements.stop.classList.remove("visible");
     this.elements.pauseAndResume.classList.remove("visible", "resume", "pause");
 
-    // Hide camera selector
+    // Hide camera and microphone selectors
     this.hideCameraSelector();
+    this.hideMicrophoneSelector();
 
     // Clear download link
     this.elements.download.href = "";
@@ -597,6 +740,12 @@ export default class ScreenRecorder {
     // Camera selector event listener
     this.elements.cameraSelect.addEventListener("change", (e) => {
       this.state.selectedCameraId = e.target.value;
+    });
+
+    // Microphone selector event listener
+    this.elements.microphoneSelect.addEventListener("change", (e) => {
+      this.state.selectedMicrophoneId = e.target.value;
+      console.log('Micrófono seleccionado:', e.target.value, 'Etiqueta:', e.target.options[e.target.selectedIndex].text);
     });
   }
 }
