@@ -1,6 +1,6 @@
 section.sh__recorder
     .sh__wrp
-        a(class="sh__logo" href="#" aria-label="ScreenREC - Inicio")
+        a(class="sh__logo" href="#" aria-label="ScreenREC - Home")
             picture(class="sh__logo--img")
                 source(srcset="images/logo.png?as=avif&width=400" type="image/avif")
                 source(srcset="images/logo.png?as=webp&width=400" type="image/webp")
@@ -11,51 +11,51 @@ section.sh__recorder
 
         header.sh__header
             h2.sh__header--title.outro(aria-live="polite")
-                span Tu video está listo para exportar
+                span Your video is ready to export
             h2.sh__header--title.recording(aria-live="polite")
-                span Estás grabando actualmente
+                span You are currently recording
             h2.sh__header--title.intro(aria-live="polite")
-                span Un grabador de pantalla web simple y elegante
+                span A simple and elegant web screen recorder
 
         .sh__choice
             .sh__dropdown(role="combobox" aria-expanded="false" aria-haspopup="listbox")
-                button(type="button" class="sh__dropdown--btn" aria-label="Seleccionar tipo de grabación" aria-describedby="dropdown-help")
+                button(type="button" class="sh__dropdown--btn" aria-label="Select recording type" aria-describedby="dropdown-help")
                     img(class="sh__dropdown--icon camera" src="./images/camera.svg" alt="" aria-hidden="true")
-                    span(class="sh__dropdown--defaultOption") ¿Qué quieres grabar?
+                    span(class="sh__dropdown--defaultOption") What do you want to record?
                     img(class="sh__dropdown--icon chevron" src="./images/chevron-down.svg" alt="" aria-hidden="true")
                 
                 ul.sh__dropdown__list(role="listbox" aria-labelledby="dropdown-label")
                     li.sh__dropdown__list--item(role="option" data-value="screen" tabindex="-1") 
-                        | Grabar solo tu pantalla
+                        | Record only your screen
                     li.sh__dropdown__list--item(role="option" data-value="screen-mic" tabindex="-1") 
-                        | Grabar pantalla con audio
+                        | Record screen with audio
                     li.sh__dropdown__list--item(role="option" data-value="screen-camera" tabindex="-1") 
-                        | Grabar pantalla con cámara
+                        | Record screen with camera
 
             .sh__camera-selector(style="display: none;")
-                label(for="camera-select" class="sh__camera-selector--label") Selecciona tu cámara:
+                label(for="camera-select" class="sh__camera-selector--label") Select your camera:
                 select(id="camera-select" class="sh__camera-selector--select")
-                    option(value="" disabled selected) Detectando cámaras...
+                    option(value="" disabled selected) Detecting cameras...
 
             .sh__microphone-selector(style="display: none;")
-                label(for="microphone-select" class="sh__microphone-selector--label") Selecciona tu micrófono:
+                label(for="microphone-select" class="sh__microphone-selector--label") Select your microphone:
                 select(id="microphone-select" class="sh__microphone-selector--select")
-                    option(value="" disabled selected) Detectando micrófonos...
+                    option(value="" disabled selected) Detecting microphones...
 
             input(
                 type="text" 
                 class="sh__choice--filename" 
                 id="filename" 
-                placeholder="Nombra tu grabación (opcional)" 
+                placeholder="Name your recording (optional)" 
                 autocomplete="off"
                 aria-describedby="filename-help"
             )
             
             button(type="button" class="sh__btn record" id="start" aria-describedby="record-help")
                 span.pulse(aria-hidden="true")
-                span ¡Listo para grabar!
+                span Ready to record!
 
-        .sh__video--wrp(role="region" aria-label="Vista previa de video")
+        .sh__video--wrp(role="region" aria-label="Video preview")
             .sh__video--sheet(aria-hidden="true")
             video(
                 class="sh__video" 
@@ -64,39 +64,39 @@ section.sh__recorder
                 height="100%" 
                 autoplay 
                 muted
-                aria-label="Vista previa de la grabación"
+                aria-label="Recording preview"
             )
             
             button(
                 class="sh__btn sh__video--btn1 pause" 
                 id="pauseAndResume"
-                aria-label="Pausar o reanudar grabación"
-                title="Pausar/Reanudar"
+                aria-label="Pause or resume recording"
+                title="Pause/Resume"
             )
                 img(src="./images/pause.svg" alt="" aria-hidden="true")
             
             button(
                 class="sh__btn sh__video--btn" 
                 id="stop"
-                aria-label="Detener grabación"
-                title="Detener"
+                aria-label="Stop recording"
+                title="Stop"
             )
                 img(src="./images/stop.svg" alt="" aria-hidden="true")
 
             a(
                 class="sh__btn sh__download-btn" 
                 id="download"
-                aria-label="Descargar video grabado"
-                title="Descargar video"
+                aria-label="Download recorded video"
+                title="Download video"
             )
                 img(class="sh__download-btn--icon" src="./images/download.svg" alt="" aria-hidden="true")
-                span.sh__download-btn--text Guardar tu Video
+                span.sh__download-btn--text Save your Video
 
             button(
                 class="sh__btn sh__record-again-btn" 
                 id="recordAgain"
-                aria-label="Grabar de nuevo"
-                title="Grabar de nuevo"
+                aria-label="Record again"
+                title="Record again"
             )
                 img(class="sh__record-again-btn--icon camera" src="./images/camera.svg" alt="" aria-hidden="true")
-                span.sh__record-again-btn--text Grabar de nuevo
+                span.sh__record-again-btn--text Record again
