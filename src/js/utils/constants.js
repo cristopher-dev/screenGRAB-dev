@@ -17,6 +17,7 @@ export const NOTIFICATION_CONFIG = {
 export const RECORDING_OPTIONS = {
   SCREEN: "screen",
   SCREEN_MIC: "screen-mic",
+  SCREEN_CAMERA: "screen-camera",
 };
 
 // Theme storage key

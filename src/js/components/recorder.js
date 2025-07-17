@@ -27,6 +27,10 @@ export default class ScreenRecorder {
       selectedOption: null,
       screenStream: null,
       microphoneStream: null,
+      cameraStream: null,
+      canvasElement: null,
+      screenVideo: null,
+      cameraVideo: null,
       audioContext: null,
     };
     this.toastTimeout = null;
@@ -218,6 +222,99 @@ export default class ScreenRecorder {
     });
   }
 
+  async recordScreenAndCamera() {
+    // Get screen stream
+    const screenStream = await navigator.mediaDevices.getDisplayMedia({
+      video: VIDEO_CONFIG,
+      audio: AUDIO_CONFIG,
+    });
+
+    // Get camera stream
+    const cameraStream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        width: { ideal: 320 },
+        height: { ideal: 240 },
+        facingMode: "user"
+      },
+      audio: false // We'll use the screen audio
+    });
+
+    // Create a canvas to combine both streams
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Set canvas dimensions based on screen stream
+    const screenVideo = document.createElement('video');
+    screenVideo.srcObject = screenStream;
+    screenVideo.play();
+
+    const cameraVideo = document.createElement('video');
+    cameraVideo.srcObject = cameraStream;
+    cameraVideo.play();
+
+    // Wait for videos to load metadata
+    await Promise.all([
+      new Promise(resolve => screenVideo.addEventListener('loadedmetadata', resolve)),
+      new Promise(resolve => cameraVideo.addEventListener('loadedmetadata', resolve))
+    ]);
+
+    // Set canvas size to screen dimensions
+    canvas.width = screenVideo.videoWidth;
+    canvas.height = screenVideo.videoHeight;
+
+    // Calculate camera overlay position (bottom-right corner)
+    const cameraWidth = Math.min(320, canvas.width * 0.25);
+    const cameraHeight = (cameraWidth * cameraVideo.videoHeight) / cameraVideo.videoWidth;
+    const cameraX = canvas.width - cameraWidth - 20;
+    const cameraY = canvas.height - cameraHeight - 20;
+
+    // Draw frames continuously
+    const drawFrame = () => {
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw screen content
+      ctx.drawImage(screenVideo, 0, 0, canvas.width, canvas.height);
+      
+      // Draw camera overlay with rounded corners
+      ctx.save();
+      ctx.beginPath();
+      ctx.roundRect(cameraX, cameraY, cameraWidth, cameraHeight, 10);
+      ctx.clip();
+      ctx.drawImage(cameraVideo, cameraX, cameraY, cameraWidth, cameraHeight);
+      ctx.restore();
+
+      // Add border to camera overlay
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.roundRect(cameraX, cameraY, cameraWidth, cameraHeight, 10);
+      ctx.stroke();
+
+      requestAnimationFrame(drawFrame);
+    };
+
+    drawFrame();
+
+    // Get the canvas stream
+    const canvasStream = canvas.captureStream(30); // 30 FPS
+
+    // Add audio from screen stream if available
+    const screenAudioTracks = screenStream.getAudioTracks();
+    if (screenAudioTracks.length > 0) {
+      screenAudioTracks.forEach(track => canvasStream.addTrack(track));
+    }
+
+    // Store references for cleanup
+    this.state.screenStream = screenStream;
+    this.state.cameraStream = cameraStream;
+    this.state.canvasElement = canvas;
+    this.state.screenVideo = screenVideo;
+    this.state.cameraVideo = cameraVideo;
+
+    return canvasStream;
+  }
+
   bakeVideo(recordedChunks) {
     const blob = new Blob(recordedChunks, {
       type: "video/" + this.state.mime,
@@ -243,6 +340,8 @@ export default class ScreenRecorder {
         stream = await this.recordScreen();
       } else if (this.state.selectedOption === RECORDING_OPTIONS.SCREEN_MIC) {
         stream = await this.recordScreenAndMicrophone();
+      } else if (this.state.selectedOption === RECORDING_OPTIONS.SCREEN_CAMERA) {
+        stream = await this.recordScreenAndCamera();
       } else {
         // Handle the case where no valid option is selected
         return;
@@ -303,6 +402,17 @@ export default class ScreenRecorder {
     if (this.state.microphoneStream) {
       this.state.microphoneStream.getTracks().forEach((track) => track.stop());
     }
+    if (this.state.cameraStream) {
+      this.state.cameraStream.getTracks().forEach((track) => track.stop());
+    }
+
+    // Clean up video elements
+    if (this.state.screenVideo) {
+      this.state.screenVideo.srcObject = null;
+    }
+    if (this.state.cameraVideo) {
+      this.state.cameraVideo.srcObject = null;
+    }
 
     // Close AudioContext if it exists
     if (this.state.audioContext) {
@@ -332,6 +442,10 @@ export default class ScreenRecorder {
     this.state.mediaRecorder = null;
     this.state.screenStream = null;
     this.state.microphoneStream = null;
+    this.state.cameraStream = null;
+    this.state.canvasElement = null;
+    this.state.screenVideo = null;
+    this.state.cameraVideo = null;
     this.state.filename = null;
 
     // Close AudioContext if it exists
