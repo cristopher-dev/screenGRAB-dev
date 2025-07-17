@@ -49,7 +49,7 @@
 .sh__choice--filename {
   &.error {
     border-color: vars.$error;
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
     animation: shake 0.5s ease-in-out;
   }
 
@@ -152,7 +152,7 @@
 .sh__btn:focus-visible {
   outline: 2px solid vars.$primary;
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
 
 // Animaciones de entrada

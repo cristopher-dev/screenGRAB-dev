@@ -38,16 +38,42 @@ body {
   font-family: vars.$main-font;
   font-size: 1rem;
   font-weight: 400;
-  background: vars.$white;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+  background-attachment: fixed;
   color: vars.$font-color;
   transition: all 0.4s vars.$bezier-curve;
   min-height: 100vh;
 
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 25% 25%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(8, 145, 178, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
   &[data-theme="dark"] {
-    background-color: vars.$darkest-grey;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    background-attachment: fixed;
     color: vars.$white;
 
+    &::before {
+      background: radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 75% 75%, rgba(14, 165, 233, 0.08) 0%, transparent 50%);
+    }
+
     .sh {
+      &__recorder .sh__wrp {
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+      
       &__toggler {
         background-color: vars.$darkest-grey;
         border-color: vars.$grey;
