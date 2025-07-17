@@ -1,13 +1,13 @@
-import recorderClass from "./components/recorder";
-import themeTogglerClass from "./components/themeToggler";
+import ScreenRecorder from "./components/recorder";
+import ThemeToggler from "./components/themeToggler";
 import { handleMobileUsers } from "./utils/handleMobileUsers";
 
 window.addEventListener("load", () => handleMobileUsers());
 
 const screenRec = {};
 //instance
-screenRec.recorder = new recorderClass();
-screenRec.theme = new themeTogglerClass();
+screenRec.recorder = ScreenRecorder.getInstance();
+screenRec.theme = ThemeToggler.getInstance();
 // init
 screenRec.recorder.init();
 screenRec.theme.init();

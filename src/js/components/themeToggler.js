@@ -1,30 +1,37 @@
-const LOCAL_STORAGE_KEY = "screenREC-color-scheme";
+import { LOCAL_STORAGE_KEY } from "../utils/constants";
 
-export default class themeTogglerClass {
+export default class ThemeToggler {
   constructor() {
-    if (!themeTogglerClass.instance) {
-      this.set = {
-        toggler: document.querySelector(".sh__toggler"),
-        icons: document.querySelectorAll(".sh__toggler--icon"),
-        moon: document.querySelector(".sh__toggler-btn--moon"),
-        sun: document.querySelector(".sh__toggler-btn--sun"),
-      };
-      themeTogglerClass.instance = this;
+    if (ThemeToggler.instance) {
+      throw new Error("Use ThemeToggler.getInstance() instead of new");
     }
-    return themeTogglerClass.instance;
+
+    this.elements = {
+      toggler: document.querySelector(".sh__toggler"),
+      icons: document.querySelectorAll(".sh__toggler--icon"),
+      moon: document.querySelector(".sh__toggler-btn--moon"),
+      sun: document.querySelector(".sh__toggler-btn--sun"),
+    };
+  }
+
+  static getInstance() {
+    if (!ThemeToggler.instance) {
+      ThemeToggler.instance = new ThemeToggler();
+    }
+    return ThemeToggler.instance;
   }
 
   activateDarkMode() {
     document.body.dataset.theme = "dark";
-    this.set.moon.classList.remove("active");
-    this.set.sun.classList.add("active");
+    this.elements.moon.classList.remove("active");
+    this.elements.sun.classList.add("active");
     window.localStorage.setItem(LOCAL_STORAGE_KEY, "dark");
   }
 
   activateLightMode() {
     document.body.dataset.theme = "light";
-    this.set.sun.classList.remove("active");
-    this.set.moon.classList.add("active");
+    this.elements.sun.classList.remove("active");
+    this.elements.moon.classList.add("active");
     window.localStorage.setItem(LOCAL_STORAGE_KEY, "light");
   }
 
@@ -42,7 +49,7 @@ export default class themeTogglerClass {
   init() {
     this.getPreferredTheme();
 
-    this.set.toggler.addEventListener("click", () => {
+    this.elements.toggler.addEventListener("click", () => {
       if (document.body.dataset.theme) {
         if (document.body.dataset.theme === "light") {
           this.activateDarkMode();
