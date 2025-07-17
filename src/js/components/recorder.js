@@ -27,6 +27,7 @@ export default class ScreenRecorder {
       selectedOption: null,
       screenStream: null,
       microphoneStream: null,
+      audioContext: null,
     };
     this.toastTimeout = null;
   }
@@ -158,35 +159,56 @@ export default class ScreenRecorder {
   }
 
   async recordScreenAndMicrophone() {
-    const screenStream = await navigator.mediaDevices.getDisplayMedia({
-      video: VIDEO_CONFIG,
-      audio: AUDIO_CONFIG,
-    });
+    try {
+      const screenStream = await navigator.mediaDevices.getDisplayMedia({
+        video: VIDEO_CONFIG,
+        audio: AUDIO_CONFIG,
+      });
 
-    const microphoneStream = await navigator.mediaDevices.getUserMedia({
-      audio: true,
-    });
+      const microphoneStream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+      });
 
-    // Create an AudioContext and a MediaStreamAudioSourceNode for each stream
-    const audioContext = new AudioContext();
-    const screenSource = audioContext.createMediaStreamSource(screenStream);
-    const microphoneSource =
-      audioContext.createMediaStreamSource(microphoneStream);
+      // Check if we have audio tracks to work with
+      const screenAudioTracks = screenStream.getAudioTracks();
+      const microphoneAudioTracks = microphoneStream.getAudioTracks();
 
-    // Create a MediaStreamAudioDestinationNode
-    const destination = audioContext.createMediaStreamDestination();
+      // If neither stream has audio tracks, just return the screen stream
+      if (screenAudioTracks.length === 0 && microphoneAudioTracks.length === 0) {
+        return screenStream;
+      }
 
-    // Connect the sources to the destination
-    screenSource.connect(destination);
-    microphoneSource.connect(destination);
+      // Create an AudioContext and a MediaStreamAudioDestinationNode
+      this.state.audioContext = new AudioContext();
+      const destination = this.state.audioContext.createMediaStreamDestination();
 
-    // Replace the screen stream's audio track with the destination's track
-    const tracks = [
-      ...screenStream.getVideoTracks(),
-      ...destination.stream.getAudioTracks(),
-    ];
+      // Connect screen audio if available
+      if (screenAudioTracks.length > 0) {
+        const screenSource = this.state.audioContext.createMediaStreamSource(screenStream);
+        screenSource.connect(destination);
+      }
 
-    return new MediaStream(tracks);
+      // Connect microphone audio if available
+      if (microphoneAudioTracks.length > 0) {
+        const microphoneSource = this.state.audioContext.createMediaStreamSource(microphoneStream);
+        microphoneSource.connect(destination);
+      }
+
+      // Replace the screen stream's audio track with the destination's track
+      const tracks = [
+        ...screenStream.getVideoTracks(),
+        ...destination.stream.getAudioTracks(),
+      ];
+
+      return new MediaStream(tracks);
+    } catch (error) {
+      // Clean up AudioContext if it was created
+      if (this.state.audioContext) {
+        this.state.audioContext.close();
+        this.state.audioContext = null;
+      }
+      throw error;
+    }
   }
 
   async recordScreen() {
@@ -282,6 +304,12 @@ export default class ScreenRecorder {
       this.state.microphoneStream.getTracks().forEach((track) => track.stop());
     }
 
+    // Close AudioContext if it exists
+    if (this.state.audioContext) {
+      this.state.audioContext.close();
+      this.state.audioContext = null;
+    }
+
     const isInactive = this.state.mediaRecorder.state === "inactive"; // when stopping record with `Stop Sharing` button, isInactive is true
 
     this.state.isRecording = false;
@@ -305,6 +333,12 @@ export default class ScreenRecorder {
     this.state.screenStream = null;
     this.state.microphoneStream = null;
     this.state.filename = null;
+
+    // Close AudioContext if it exists
+    if (this.state.audioContext) {
+      this.state.audioContext.close();
+      this.state.audioContext = null;
+    }
 
     // Reset UI elements
     this.elements.preview.srcObject = null;
