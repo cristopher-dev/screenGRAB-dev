@@ -25,7 +25,7 @@ export const LOCAL_STORAGE_KEY = "screenGRAB-color-scheme";
 
 // Media recorder configuration
 export const MEDIA_RECORDER_CONFIG = {
-  CHUNK_SIZE: 1000, // ms - Aumentado para mejor rendimiento en grabaciones largas
+  CHUNK_SIZE: 3000, // ms - Chunks más grandes para mejor estabilidad en grabaciones largas
   TOAST_TIMEOUT: 3700, // ms
   ANIMATION_TIMEOUT: 500, // ms
 };

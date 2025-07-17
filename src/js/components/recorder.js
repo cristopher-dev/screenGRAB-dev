@@ -114,24 +114,36 @@ export default class screenGRABorder {
   getBestMimeType() {
     // Lista de MIME types ordenados por preferencia para grabaciones largas
     const preferredMimeTypes = [
-      'video/webm;codecs=vp9,opus',     // VP9 es más eficiente para archivos grandes
-      'video/webm;codecs=vp8,opus',     // VP8 como fallback
-      'video/webm;codecs=h264,opus',    // H264 en WebM
+      // Priorizar formatos más estables para grabaciones largas
+      'video/webm;codecs=vp8,opus',     // VP8 es más estable que VP9
+      'video/webm;codecs=vp9,opus',     // VP9 solo si VP8 no está disponible
       'video/webm',                     // WebM genérico
-      'video/mp4;codecs=h264,aac',      // MP4 H264
+      'video/mp4;codecs=h264,aac',      // MP4 H264 (más compatible)
       'video/mp4'                       // MP4 genérico
     ];
 
     for (const mimeType of preferredMimeTypes) {
       if (MediaRecorder.isTypeSupported(mimeType)) {
         console.log(`Usando MIME type: ${mimeType}`);
-        return mimeType; // Devolver el MIME type completo
+        return mimeType;
       }
     }
 
-    // Fallback si ninguno es compatible
-    console.warn('Ningún MIME type preferido es compatible, usando video/webm por defecto');
-    return 'video/webm';
+    // Fallback más robusto
+    console.warn('Ningún MIME type preferido es compatible, probando fallbacks...');
+    
+    // Probar tipos básicos sin codecs específicos
+    const fallbackTypes = ['video/webm', 'video/mp4'];
+    for (const type of fallbackTypes) {
+      if (MediaRecorder.isTypeSupported(type)) {
+        console.log(`Usando fallback MIME type: ${type}`);
+        return type;
+      }
+    }
+
+    // Último recurso - usar el que esté disponible
+    console.error('No se encontró ningún MIME type compatible');
+    return 'video/webm'; // Fallback final
   }
 
   async detectAvailableCameras() {
@@ -331,9 +343,37 @@ export default class screenGRABorder {
     let recordedChunks = [];
     let totalSize = 0; // Rastrear el tamaño total
     
-    this.state.mediaRecorder = new MediaRecorder(stream, {
+    // Validar que el MIME type sea compatible antes de crear el MediaRecorder
+    if (!MediaRecorder.isTypeSupported(this.state.mime)) {
+      console.error(`MIME type no compatible: ${this.state.mime}`);
+      // Intentar con un fallback
+      this.state.mime = this.getBestMimeType();
+      console.log(`Usando MIME type de respaldo: ${this.state.mime}`);
+    }
+    
+    // Configurar opciones del MediaRecorder para mejor estabilidad
+    const mediaRecorderOptions = {
       mimeType: this.state.mime
-    });
+    };
+    
+    // Agregar opciones de bitrate para grabaciones largas si el MIME type las soporta
+    if (this.state.mime.includes('webm')) {
+      // Para WebM, usar bitrates más conservadores para grabaciones largas
+      mediaRecorderOptions.videoBitsPerSecond = 2500000; // 2.5 Mbps
+      mediaRecorderOptions.audioBitsPerSecond = 128000;  // 128 kbps
+    }
+    
+    console.log('Configuración MediaRecorder:', mediaRecorderOptions);
+    
+    try {
+      this.state.mediaRecorder = new MediaRecorder(stream, mediaRecorderOptions);
+    } catch (error) {
+      console.error('Error creando MediaRecorder con opciones avanzadas:', error);
+      // Fallback sin opciones de bitrate
+      this.state.mediaRecorder = new MediaRecorder(stream, {
+        mimeType: this.state.mime
+      });
+    }
 
     this.state.mediaRecorder.ondataavailable = (e) => {
       if (e.data && e.data.size > 0) {
@@ -351,7 +391,7 @@ export default class screenGRABorder {
         }
         
         // Advertencia si el archivo se está volviendo muy grande (>500MB)
-        if (totalSize > 500 * 1024 * 1024) {
+        if (totalSize > 500 * 1024 * 1024 && recordedChunks.length % 100 === 0) { // Solo mostrar cada 100 chunks para no spam
           console.warn('Grabación muy grande (>500MB), considere detener pronto para evitar problemas de memoria');
           this.showCustomToast('Grabación muy larga detectada. Considere detener pronto.', 'warning');
         }
@@ -362,6 +402,8 @@ export default class screenGRABorder {
           this.stopRecording();
           this.showCustomToast('Grabación detenida automáticamente por límite de memoria', 'error');
         }
+      } else {
+        console.warn('Chunk vacío recibido');
       }
     };
 
@@ -377,17 +419,27 @@ export default class screenGRABorder {
         return;
       }
       
-      this.bakeVideo(recordedChunks);
-      recordedChunks = [];
-      totalSize = 0;
+      // Procesar el video en el próximo tick para evitar bloquear la UI
+      setTimeout(() => {
+        this.bakeVideo(recordedChunks);
+        recordedChunks = [];
+        totalSize = 0;
+      }, 100);
+    };
+
+    this.state.mediaRecorder.onerror = (event) => {
+      console.error('Error en MediaRecorder:', event.error);
+      handleRecorderError(new RecorderError('Error durante la grabación: ' + event.error.message, ERROR_TYPES.RECORDING_FAILED));
     };
 
     // When stopping 'Tab Record' on Chrome browser by clicking 'Stop sharing' button, this gets fired instead of onstop event.
     this.state.mediaRecorder.stream.oninactive = () => {
+      console.log('Stream inactivo, deteniendo grabación');
       this.stopRecording();
     };
 
     this.state.mediaRecorder.start(MEDIA_RECORDER_CONFIG.CHUNK_SIZE);
+    console.log(`MediaRecorder iniciado con chunks de ${MEDIA_RECORDER_CONFIG.CHUNK_SIZE}ms`);
     return this.state.mediaRecorder;
   }
 
@@ -610,59 +662,109 @@ export default class screenGRABorder {
   }
 
   bakeVideo(recordedChunks) {
-    const blob = new Blob(recordedChunks, {
-      type: this.state.mime, // Usar el MIME type completo
-    });
+    console.log(`Procesando video: ${recordedChunks.length} chunks`);
+    console.log(`MIME type para blob: ${this.state.mime}`);
     
-    // Verificar que el blob tenga contenido
-    if (blob.size === 0) {
-      console.error('El blob está vacío, no se puede crear la descarga');
-      handleRecorderError(new RecorderError('No se pudo generar el video', ERROR_TYPES.PROCESSING));
+    // Verificar que tengamos chunks válidos
+    if (!recordedChunks || recordedChunks.length === 0) {
+      console.error('No hay chunks de video para procesar');
+      handleRecorderError(new RecorderError('No se grabaron datos de video', ERROR_TYPES.PROCESSING));
       return;
     }
-    
-    let savedName;
-    if (this.state.filename == null || this.state.filename == "")
-      savedName = this.getRandomString(15);
-    else savedName = this.state.filename;
-    
-    // Determinar la extensión correcta basada en el MIME type
-    const fileExtension = this.getFileExtensionFromMimeType(this.state.mime);
-    
-    // Crear URLs por separado para descarga y preview
-    const downloadUrl = URL.createObjectURL(blob);
-    const previewUrl = URL.createObjectURL(blob);
-    
-    this.elements.download.href = downloadUrl;
-    this.elements.download.download = `${savedName}.${fileExtension}`;
-    this.elements.videoOpacitySheet.remove();
-    this.elements.preview.autoplay = true;
-    this.elements.preview.controls = true;
-    this.elements.preview.muted = false;
-    this.elements.preview.src = previewUrl;
-    
-    // Agregar listener para limpiar URLs cuando ya no se necesiten
-    this.elements.download.addEventListener('click', () => {
-      setTimeout(() => {
-        URL.revokeObjectURL(downloadUrl);
-      }, 1000);
-    });
-    
-    // Limpiar URL del preview cuando se carge un nuevo video
-    this.elements.preview.addEventListener('loadstart', () => {
-      if (this.elements.preview.src !== previewUrl) {
-        URL.revokeObjectURL(previewUrl);
+
+    // Verificar que los chunks tengan datos
+    const totalSize = recordedChunks.reduce((sum, chunk) => sum + chunk.size, 0);
+    if (totalSize === 0) {
+      console.error('Los chunks están vacíos');
+      handleRecorderError(new RecorderError('Los datos de video están vacíos', ERROR_TYPES.PROCESSING));
+      return;
+    }
+
+    try {
+      // Crear el blob con el MIME type correcto
+      const blob = new Blob(recordedChunks, {
+        type: this.state.mime
+      });
+      
+      console.log(`Blob creado: ${(blob.size / 1024 / 1024).toFixed(2)} MB, tipo: ${blob.type}`);
+      
+      // Verificar que el blob se creó correctamente
+      if (blob.size === 0) {
+        console.error('El blob resultante está vacío');
+        handleRecorderError(new RecorderError('Error al procesar el video', ERROR_TYPES.PROCESSING));
+        return;
       }
-    });
+      
+      let savedName;
+      if (this.state.filename == null || this.state.filename == "")
+        savedName = this.getRandomString(15);
+      else savedName = this.state.filename;
+      
+      // Determinar la extensión correcta basada en el MIME type
+      const fileExtension = this.getFileExtensionFromMimeType(this.state.mime);
+      console.log(`Extensión de archivo: ${fileExtension}`);
+      
+      // Crear URLs por separado para descarga y preview
+      const downloadUrl = URL.createObjectURL(blob);
+      const previewUrl = URL.createObjectURL(blob);
+      
+      // Configurar la descarga
+      this.elements.download.href = downloadUrl;
+      this.elements.download.download = `${savedName}.${fileExtension}`;
+      
+      // Configurar el preview
+      this.elements.videoOpacitySheet.remove();
+      this.elements.preview.autoplay = true;
+      this.elements.preview.controls = true;
+      this.elements.preview.muted = false;
+      this.elements.preview.src = previewUrl;
+      
+      // Agregar listener para limpiar URLs cuando ya no se necesiten
+      const downloadHandler = () => {
+        console.log('Iniciando descarga, limpiando URL en 2 segundos...');
+        setTimeout(() => {
+          URL.revokeObjectURL(downloadUrl);
+          console.log('URL de descarga limpiada');
+        }, 2000); // Dar más tiempo para la descarga
+        this.elements.download.removeEventListener('click', downloadHandler);
+      };
+      
+      this.elements.download.addEventListener('click', downloadHandler);
+      
+      // Limpiar URL del preview cuando se carge un nuevo video
+      const previewHandler = () => {
+        if (this.elements.preview.src !== previewUrl) {
+          URL.revokeObjectURL(previewUrl);
+          console.log('URL de preview limpiada');
+          this.elements.preview.removeEventListener('loadstart', previewHandler);
+        }
+      };
+      
+      this.elements.preview.addEventListener('loadstart', previewHandler);
+      
+      console.log('Video procesado exitosamente');
+      
+    } catch (error) {
+      console.error('Error al crear el blob de video:', error);
+      handleRecorderError(new RecorderError('Error al procesar el video: ' + error.message, ERROR_TYPES.PROCESSING));
+    }
   }
 
   getFileExtensionFromMimeType(mimeType) {
-    if (mimeType.includes('video/mp4')) {
+    // Extraer el tipo principal sin los codecs
+    const baseType = mimeType.split(';')[0].toLowerCase();
+    
+    if (baseType === 'video/mp4') {
       return 'mp4';
-    } else if (mimeType.includes('video/webm')) {
+    } else if (baseType === 'video/webm') {
+      return 'webm';
+    } else if (baseType.includes('mp4')) {
+      return 'mp4';
+    } else if (baseType.includes('webm')) {
       return 'webm';
     } else {
-      // Fallback por defecto
+      // Fallback seguro
+      console.warn(`Tipo MIME desconocido: ${mimeType}, usando webm como fallback`);
       return 'webm';
     }
   }
