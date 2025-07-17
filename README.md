@@ -1,10 +1,10 @@
 <div align="center">
 
-# 🎬 **ScreenREC**
+# 🎬 **screenGRAB**
 
-## 🌟 **Why ScreenREC?**
+## 🌟 **Why screenGRAB?**
 
-In a world where **visual content is KING**, you need a tool that DOESN'T limit you. ScreenREC was created to make screen recording easy whenever video calls, tutorials, and demos are ESSENTIAL.
+In a world where **visual content is KING**, you need a tool that DOESN'T limit you. screenGRAB was created to make screen recording easy whenever video calls, tutorials, and demos are ESSENTIAL.
 
 **And the best part? It's completely FREE and without restrictions!**
 
@@ -12,7 +12,7 @@ In a world where **visual content is KING**, you need a tool that DOESN'T limit 
 
 _The Most Powerful and Free Screen Recording Tool in the World_
 
-![ScreenREC Logo](src/images/logo.png)
+![screenGRAB Logo](src/images/logo.png)
 
 ---
 
@@ -36,7 +36,7 @@ _The Most Powerful and Free Screen Recording Tool in the World_
 
 <div align="center">
 
-## 🔥 **Tired of Limitations? ScreenREC is Your Solution!**
+## 🔥 **Tired of Limitations? screenGRAB is Your Solution!**
 
 **📹 No time limits** | **💰 No hidden subscriptions** | **🚫 No annoying watermarks**
 
@@ -48,9 +48,9 @@ _You'll be recording like a pro in less than 10 seconds!_
 
 ---
 
-## 🌟 **Why ScreenREC?**
+## 🌟 **Why screenGRAB?**
 
-In a world where **visual content is king**, you need a tool that doesn’t limit you. ScreenREC was created to make screen recording easy whenever you need it for video calls, tutorials, or demos.
+In a world where **visual content is king**, you need a tool that doesn’t limit you. screenGRAB was created to make screen recording easy whenever you need it for video calls, tutorials, or demos.
 
 **And best of all? It’s completely FREE and without restrictions!**
 
@@ -63,14 +63,14 @@ In a world where **visual content is king**, you need a tool that doesn’t limi
 </div>
 
 **Light Theme - Perfect for daytime work** ☀️  
-![ScreenREC Light Theme - Clean and professional interface](docs/screenshots/image-1.png)
+![screenGRAB Light Theme - Clean and professional interface](docs/screenshots/image-1.png)
 
 **Dark Theme - Ideal for long sessions** 🌙  
-![ScreenREC Dark Theme - Modern and elegant design](docs/screenshots/image-2.png)
+![screenGRAB Dark Theme - Modern and elegant design](docs/screenshots/image-2.png)
 
 <div align="center">
 
-## 💥 **THIS is what will make you ADDICTED to ScreenREC!**
+## 💥 **THIS is what will make you ADDICTED to screenGRAB!**
 
 </div>
 
@@ -126,7 +126,7 @@ _You'll be recording like a pro in less than 10 seconds!_
 
 ## 🏆 **JOIN THE REVOLUTION!**
 
-### 🔥 **Thousands of professionals have already chosen ScreenREC**
+### 🔥 **Thousands of professionals have already chosen screenGRAB**
 
 ### ⭐ **"The best free tool I've ever used" - Verified User**
 
@@ -171,7 +171,7 @@ _You'll be recording like a pro in less than 10 seconds!_
 
 ## 🚨 **LAST CHANCE!**
 
-### ⚡ **ScreenREC is 100% FREE... For how much longer?**
+### ⚡ **screenGRAB is 100% FREE... For how much longer?**
 
 </div>
 
@@ -246,8 +246,8 @@ _You'll be recording like a pro in less than 10 seconds!_
 
 ```bash
 # 1️⃣ Clone this awesome project
-git clone https://github.com/cristopher-dev/screenREC-dev.git
-cd screenREC-dev
+git clone https://github.com/cristopher-dev/screenGRAB-dev.git
+cd screenGRAB-dev
 
 # 2️⃣ Install dependencies (just once)
 npm install
@@ -313,8 +313,8 @@ All main components use the Singleton pattern:
 
 ```javascript
 // Usage example
-import ScreenRecorder from './components/recorder';
-const recorder = ScreenRecorder.getInstance();
+import screenGRABorder from './components/recorder';
+const recorder = screenGRABorder.getInstance();
 ```
 
 ### ES6 Modules
@@ -322,7 +322,7 @@ const recorder = ScreenRecorder.getInstance();
 Import/export system for modularity:
 
 ```javascript
-import ScreenRecorder from './components/recorder';
+import screenGRABorder from './components/recorder';
 import ThemeToggler from './components/themeToggler';
 ```
 
@@ -347,7 +347,7 @@ this.state = {
 
 ### CSS Classes (BEM-like)
 
-- **Block**: `.sh__component` (sh = ScreenREC)
+- **Block**: `.sh__component` (sh = screenGRAB)
 - **Element**: `.sh__component--element`
 - **List**: `.sh__component__list--item`
 
@@ -440,11 +440,11 @@ Git hooks for pre-commit checks.
 
 ---
 
-## 🏆 **Why ScreenREC is the BEST Choice**
+## 🏆 **Why screenGRAB is the BEST Choice**
 
 ### 🆚 **REAL Comparison with the Competition:**
 
-| Feature             | ScreenREC           | Other Recorders            |
+| Feature             | screenGRAB           | Other Recorders            |
 | ------------------- | ------------------- | -------------------------- |
 | **💰 Price**        | ✅ Free Forever     | ❌ Expensive subscriptions |
 | **⏱️ Time Limit**   | ✅ Unlimited        | ❌ 5-10 minutes max        |
@@ -488,7 +488,7 @@ Join the community of creators who have already discovered the secret!**
 
 <div align="center">
 
-### 💫 **Did you like ScreenREC?**
+### 💫 **Did you like screenGRAB?**
 
 **⭐ Give it a star on GitHub!** | **🔄 Share it with your friends** | **💬 Give us your feedback**
 
