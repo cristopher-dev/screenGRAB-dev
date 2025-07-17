@@ -1,13 +1,14 @@
-# ✨ ScreenREC - El Grabador de Pantalla que Necesitas
+# ✨ ScreenREC - The Screen Recorder You Need
 
 <div align="center">
 
 ![ScreenREC Logo](src/images/logo.png)
 
-### 🎬 **La herramienta definitiva para grabación de pantalla**
-### ¡Gratuita, Sin límites, Sin complicaciones!
+### 🎬 **The Ultimate Screen Recording Tool**
 
-[![Live Demo](https://img.shields.io/badge/🌐_Ver_Demo-4285f4?style=for-the-badge)](https://screenrec.vercel.app)
+### Free, Unlimited, Hassle-Free!
+
+[![Live Demo](https://img.shields.io/badge/🌐_View_Demo-4285f4?style=for-the-badge)](https://screenrec.vercel.app)
 [![GitHub Stars](https://img.shields.io/github/stars/cristopher-dev/screenREC-dev?style=for-the-badge&logo=github)](https://github.com/cristopher-dev/screenREC-dev)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE.md)
 
@@ -15,194 +16,210 @@
 
 ---
 
-## 🌟 **¿Por qué ScreenREC?**
+## 🌟 **Why ScreenREC?**
 
-En un mundo donde **el contenido visual es rey**, necesitas una herramienta que no te limite. ScreenREC nació durante la era COVID-19 cuando las videollamadas, tutoriales y demostraciones se volvieron esenciales. 
+In a world where **visual content is king**, you need a tool that doesn’t limit you. ScreenREC was born during the COVID-19 era when video calls, tutorials, and demos became essential.
 
-**¡Y lo mejor de todo? Es completamente GRATIS y sin restricciones!**
+**And best of all? It’s completely FREE and without restrictions!**
 
-## 🚀 **Características que te Encantarán**
+## 🚀 **Features You'll Love**
 
 <div align="center">
 
-### 🎯 **Interfaz Elegante y Funcional**
+### 🎯 **Elegant and Functional Interface**
 
 </div>
 
-**Tema Claro - Perfecto para trabajar de día** ☀️
-![ScreenREC Tema Claro - Interfaz limpia y profesional](docs/screenshots/light-theme.png)
+**Light Theme - Perfect for daytime work** ☀️  
+![ScreenREC Light Theme - Clean and professional interface](docs/screenshots/light-theme.png)
 
-**Tema Oscuro - Ideal para largas sesiones** 🌙
-![ScreenREC Tema Oscuro - Diseño moderno y elegante](docs/screenshots/dark-theme.png)
+**Dark Theme - Ideal for long sessions** 🌙  
+![ScreenREC Dark Theme - Modern and sleek design](docs/screenshots/dark-theme.png)
 
-### ✨ **Lo que hace especial a ScreenREC:**
+### ✨ **What Makes ScreenREC Special:**
 
-🎬 **GRABACIÓN ILIMITADA** 
-> Sin restricciones de tiempo. Graba desde 5 segundos hasta 5 horas.
+🎬 **UNLIMITED RECORDING**
 
-💰 **100% GRATUITO PARA SIEMPRE**
-> Sin suscripciones ocultas, sin marcas de agua, sin trucos.
+> No time restrictions. Record from 5 seconds to 5 hours.
 
-🚫 **CERO ANUNCIOS**
-> Experiencia pura de grabación sin interrupciones molestas.
+💰 **100% FREE FOREVER**
 
-🎵 **AUDIO CRISTALINO**
-> Captura audio del sistema + micrófono simultáneamente.
+> No hidden subscriptions, no watermarks, no tricks.
 
-🎨 **TEMAS ELEGANTES**
-> Cambia entre modo claro y oscuro según tu preferencia.
+🚫 **ZERO ADS**
 
-📱 **RESPONSIVE AL 100%**
-> Funciona perfectamente en cualquier resolución de pantalla.
+> Pure recording experience without annoying interruptions.
 
-⚡ **SIN INSTALACIÓN**
-> Directo en tu navegador. ¡Haz clic y empieza a grabar!
+🎵 **CRYSTAL CLEAR AUDIO**
 
-🔒 **PRIVACIDAD TOTAL**
-> Todo se procesa en tu dispositivo. Nunca enviamos tus grabaciones.
+> Capture system audio + microphone simultaneously.
 
-## 🎯 **¡Pruébalo Ahora!**
+🎨 **ELEGANT THEMES**
+
+> Switch between light and dark mode as you prefer.
+
+📱 **100% RESPONSIVE**
+
+> Works perfectly on any screen resolution.
+
+⚡ **NO INSTALLATION**
+
+> Directly in your browser. Just click and start recording!
+
+🔒 **TOTAL PRIVACY**
+
+> Everything is processed on your device. We never send your recordings.
+
+## 🎯 **Try It Now!**
 
 <div align="center">
 
-### 🌐 **[» DEMO EN VIVO - Haz clic aquí «](https://screenrec.vercel.app)**
+### 🌐 **[» LIVE DEMO - Click Here «](https://screenrec.vercel.app)**
 
-*¡En menos de 10 segundos estarás grabando como un profesional!*
+_You'll be recording like a pro in less than 10 seconds!_
 
 </div>
 
 ---
 
-## 🔥 **Casos de Uso Perfectos**
+## 🔥 **Perfect Use Cases**
 
-### 👨‍💼 **Profesionales**
-- 📊 Presentaciones de negocios
-- 🎓 Tutoriales y capacitaciones
-- 🐛 Reportes de bugs con evidencia visual
-- 📹 Demos de productos
+### 👨‍💼 **Professionals**
 
-### 🎮 **Creadores de Contenido**
-- 🎬 Gameplay y streaming
-- 🖥️ Tutoriales de software
-- 🎨 Procesos creativos
-- 📚 Contenido educativo
+- 📊 Business presentations
+- 🎓 Tutorials and training
+- 🐛 Bug reports with visual evidence
+- 📹 Product demos
 
-### 👨‍🎓 **Estudiantes y Educadores**
-- 📖 Clases virtuales
-- 📝 Explicaciones de tareas
-- 🧪 Experimentos online
-- 💡 Proyectos colaborativos
+### 🎮 **Content Creators**
 
-## ⚡ **Tecnología de Vanguardia**
+- 🎬 Gameplay and streaming
+- 🖥️ Software tutorials
+- 🎨 Creative processes
+- 📚 Educational content
+
+### 👨‍🎓 **Students and Educators**
+
+- 📖 Virtual classes
+- 📝 Task explanations
+- 🧪 Online experiments
+- 💡 Collaborative projects
+
+## ⚡ **Cutting-Edge Technology**
 
 <div align="center">
 
-### 🏗️ **Construido con las mejores tecnologías web modernas**
+### 🏗️ **Built with the Best Modern Web Technologies**
 
 </div>
 
-| Tecnología | Propósito | ¿Por qué la elegimos? |
-|------------|-----------|----------------------|
-| 🟧 **Parcel.js** | Build & Bundling | ⚡ Configuración cero, velocidad máxima |
-| 🟦 **Vanilla JS ES6+** | Lógica Principal | 🚀 Performance puro, sin dependencias pesadas |
-| 🟪 **Pug Templates** | HTML Modular | 📦 Componentes reutilizables y mantenibles |
-| 🟩 **SCSS/Sass** | Estilos Avanzados | 🎨 Variables, mixins y arquitectura escalable |
-| 🔴 **MediaRecorder API** | Grabación | 🎬 API nativa del navegador, máxima compatibilidad |
+| Technology               | Purpose          | Why We Chose It                              |
+| ------------------------ | ---------------- | -------------------------------------------- |
+| 🟧 **Parcel.js**         | Build & Bundling | ⚡ Zero config, blazing fast                 |
+| 🟦 **Vanilla JS ES6+**   | Core Logic       | 🚀 Pure performance, no heavy dependencies   |
+| 🟪 **Pug Templates**     | Modular HTML     | 📦 Reusable and maintainable components      |
+| 🟩 **SCSS/Sass**         | Advanced Styles  | 🎨 Variables, mixins, scalable architecture  |
+| 🔴 **MediaRecorder API** | Recording        | 🎬 Native browser API, maximum compatibility |
 
-### 🌐 **APIs Web Utilizadas**
-- **🎥 MediaRecorder API**: Grabación de video/audio de alta calidad
-- **🖥️ getDisplayMedia API**: Captura de pantalla nativa del navegador
-- **🎤 getUserMedia API**: Acceso profesional al micrófono
+### 🌐 **Web APIs Used**
 
-## 🎮 **¡Empezar es Súper Fácil!**
+- **🎥 MediaRecorder API**: High-quality video/audio recording
+- **🖥️ getDisplayMedia API**: Native screen capture
+- **🎤 getUserMedia API**: Professional microphone access
+
+## 🎮 **Getting Started is Super Easy!**
 
 <div align="center">
 
-### 🚀 **En 4 pasos simples estarás grabando**
+### 🚀 **Start Recording in 4 Simple Steps**
 
 </div>
 
 ```bash
-# 1️⃣ Clona este increíble proyecto
+# 1️⃣ Clone this awesome project
 git clone https://github.com/cristopher-dev/screenREC-dev.git
 cd screenREC-dev
 
-# 2️⃣ Instala las dependencias (solo una vez)
+# 2️⃣ Install dependencies (just once)
 npm install
 
-# 3️⃣ ¡Lanza el servidor de desarrollo!
+# 3️⃣ Launch the development server!
 npm start
 
-# 4️⃣ ¡Abre tu navegador en http://localhost:1234 y empieza a grabar! 🎬
+# 4️⃣ Open your browser at http://localhost:1234 and start recording! 🎬
 ```
 
-### 🔥 **¿Quieres deployar tu propia versión?**
+### 🔥 **Want to deploy your own version?**
 
 ```bash
-# Construye para producción (optimizado al máximo)
+# Build for production (fully optimized)
 npm run build
 
-# ¡Tu aplicación estará lista en la carpeta /dist!
+# Your app will be ready in the /dist folder!
 ```
 
-### 📋 **Compatibilidad de Navegadores**
+### 📋 **Browser Compatibility**
 
-| Navegador | Versión Mínima | Estado |
-|-----------|----------------|--------|
-| 🟢 **Chrome** | 72+ | ✅ Perfecto |
-| 🟠 **Firefox** | 65+ | ✅ Perfecto |
-| 🔵 **Safari** | 13+ | ✅ Perfecto |
-| 🟣 **Edge** | 79+ | ✅ Perfecto |
+| Browser        | Minimum Version | Status     |
+| -------------- | --------------- | ---------- |
+| 🟢 **Chrome**  | 72+             | ✅ Perfect |
+| 🟠 **Firefox** | 65+             | ✅ Perfect |
+| 🔵 **Safari**  | 13+             | ✅ Perfect |
+| 🟣 **Edge**    | 79+             | ✅ Perfect |
 
-> **💡 Tip:** Para la mejor experiencia, usa Chrome o Firefox.
+> **💡 Tip:** For the best experience, use Chrome or Firefox.
 
-### 📱 **Dispositivos Soportados**
-- ✅ **Desktop/Laptop**: Experiencia completa
-- ❌ **Mobile/Tablet**: Próximamente (las APIs de grabación aún no están disponibles en móviles)
+### 📱 **Supported Devices**
 
-## 📁 Estructura del Proyecto
+- ✅ **Desktop/Laptop**: Full experience
+- ❌ **Mobile/Tablet**: Coming soon (recording APIs not yet available on mobile)
+
+## 📁 Project Structure
 
 ```
 src/
-├── index.pug                 # Punto de entrada principal
+├── index.pug                 # Main entry point
 ├── js/
-│   ├── index.js             # Inicialización de la aplicación
-│   ├── components/          # Componentes reutilizables
-│   │   ├── recorder.js      # Lógica de grabación de pantalla
-│   │   └── themeToggler.js  # Gestión de temas
-│   └── utils/               # Funciones utilitarias
-│       ├── constants.js     # Constantes de la aplicación
-│       ├── errorHandler.js  # Gestión de errores
-│       └── handleMobileUsers.js # Detección móvil
+│   ├── index.js             # App initialization
+│   ├── components/          # Reusable components
+│   │   ├── recorder.js      # Screen recording logic
+│   │   └── themeToggler.js  # Theme management
+│   └── utils/               # Utility functions
+│       ├── constants.js     # App constants
+│       ├── errorHandler.js  # Error management
+│       └── handleMobileUsers.js # Mobile detection
 ├── scss/
-│   ├── index.scss          # Hoja de estilos principal
-│   ├── components/         # Estilos de componentes
-│   └── utils/              # Utilidades SCSS
-├── partials/               # Plantillas Pug
-└── images/                 # Assets estáticos
+│   ├── index.scss          # Main stylesheet
+│   ├── components/         # Component styles
+│   └── utils/              # SCSS utilities
+├── partials/               # Pug templates
+└── images/                 # Static assets
 ```
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
-### Patrón Singleton
-Todos los componentes principales utilizan el patrón Singleton:
+### Singleton Pattern
+
+All main components use the Singleton pattern:
 
 ```javascript
-// Ejemplo de uso
-import ScreenRecorder from "./components/recorder";
+// Usage example
+import ScreenRecorder from './components/recorder';
 const recorder = ScreenRecorder.getInstance();
 ```
 
-### Módulos ES6
-Sistema de importación/exportación para modularidad:
+### ES6 Modules
+
+Import/export system for modularity:
 
 ```javascript
-import ScreenRecorder from "./components/recorder";
-import ThemeToggler from "./components/themeToggler";
+import ScreenRecorder from './components/recorder';
+import ThemeToggler from './components/themeToggler';
 ```
 
-### Gestión de Estado
-Estado centralizado dentro de cada componente:
+### State Management
+
+Centralized state within each component:
 
 ```javascript
 this.state = {
@@ -217,188 +234,201 @@ this.state = {
 };
 ```
 
-## 🎨 Convenciones de Código
+## 🎨 Code Conventions
 
-### Clases CSS (BEM-like)
-- **Bloque**: `.sh__component` (sh = ScreenRec)
-- **Elemento**: `.sh__component--element`
-- **Lista**: `.sh__component__list--item`
+### CSS Classes (BEM-like)
+
+- **Block**: `.sh__component` (sh = ScreenRec)
+- **Element**: `.sh__component--element`
+- **List**: `.sh__component__list--item`
 
 ### JavaScript
-- **Constantes**: `UPPER_SNAKE_CASE`
-- **Variables**: `camelCase`
-- **Clases**: `PascalCase`
-- **Archivos**: `camelCase.js`
 
-### Archivos
-- **Plantillas Pug**: `kebab-case.pug`
-- **Archivos SCSS**: `kebab-case.scss` con prefijo `_` para partials
+- **Constants**: `UPPER_SNAKE_CASE`
+- **Variables**: `camelCase`
+- **Classes**: `PascalCase`
+- **Files**: `camelCase.js`
+
+### Files
+
+- **Pug templates**: `kebab-case.pug`
+- **SCSS files**: `kebab-case.scss` with `_` prefix for partials
 - **JavaScript**: `camelCase.js`
 
-## 📜 Scripts Disponibles
+## 📜 Available Scripts
 
 ```bash
-# Iniciar servidor de desarrollo
+# Start development server
 npm start
 
-# Compilar para producción
+# Build for production
 npm run build
 
-# Formatear código
+# Format code
 npm run format
 
-# Verificar formato
+# Check formatting
 npm run check-format
 
-# Verificar linting
+# Check linting
 npm run check-lint
 
-# Ejecutar todas las verificaciones
+# Run all checks
 npm test
 ```
 
-## 🔧 Configuración
+## 🔧 Configuration
 
 ### ESLint
-El proyecto utiliza ESLint para linting con integración de Prettier.
+
+The project uses ESLint for linting with Prettier integration.
 
 ### Prettier
-Formateo automático de código con configuración estándar.
+
+Automatic code formatting with standard configuration.
 
 ### Husky
-Git hooks para verificaciones pre-commit.
 
-## 🎯 **Guía de Uso Rápida**
+Git hooks for pre-commit checks.
+
+## 🎯 **Quick Usage Guide**
 
 <div align="center">
 
-### 📖 **¡Graba como un profesional en 5 pasos!**
+### 📖 **Record Like a Pro in 5 Steps!**
 
 </div>
 
-### 🎬 **Proceso de Grabación:**
+### 🎬 **Recording Process:**
 
-1. **🎯 Selecciona tu objetivo**
-   - 🖥️ Pantalla completa
-   - 🪟 Ventana específica  
-   - 🌐 Pestaña del navegador
+1. **🎯 Select your target**
 
-2. **🎵 Configura el audio (opcional)**
-   - 🔊 Audio del sistema
-   - 🎤 Micrófono personal
-   - 🎭 ¡O ambos para máxima calidad!
+   - 🖥️ Full screen
+   - 🪟 Specific window
+   - 🌐 Browser tab
 
-3. **📝 Nombra tu grabación (opcional)**
-   - Dale un nombre personalizado
-   - O deja que generemos uno automáticamente
+2. **🎵 Configure audio (optional)**
 
-4. **🎬 ¡GRABA!**
-   - ⏺️ Inicia tu grabación
-   - ⏸️ Pausa cuando necesites
-   - ⏹️ Detén cuando termines
+   - 🔊 System audio
+   - 🎤 Personal microphone
+   - 🎭 Or both for maximum quality!
 
-5. **📥 Descarga instantánea**
-   - El archivo se descarga automáticamente
-   - Formato MP4 compatible con todo
-   - ¡Listo para compartir!
+3. **📝 Name your recording (optional)**
+
+   - Give it a custom name
+   - Or let us generate one automatically
+
+4. **🎬 RECORD!**
+
+   - ⏺️ Start your recording
+   - ⏸️ Pause when needed
+   - ⏹️ Stop when finished
+
+5. **📥 Instant download**
+   - The file downloads automatically
+   - MP4 format compatible everywhere
+   - Ready to share!
 
 ---
 
-## 🏆 **¿Por qué ScreenREC es la Mejor Opción?**
+## 🏆 **Why ScreenREC is the Best Choice**
 
-### 🆚 **Comparación con la Competencia:**
+### 🆚 **Comparison with Competitors:**
 
-| Característica | ScreenREC | Otros Grabadores |
-|----------------|-----------|------------------|
-| **💰 Precio** | ✅ Gratis Forever | ❌ Suscripciones caras |
-| **⏱️ Límite de tiempo** | ✅ Ilimitado | ❌ 5-10 minutos |
-| **🚫 Anuncios** | ✅ Cero anuncios | ❌ Anuncios invasivos |
-| **💧 Marca de agua** | ✅ Sin marca | ❌ Logo molesto |
-| **📱 Instalación** | ✅ Solo navegador | ❌ Software pesado |
-| **🔒 Privacidad** | ✅ 100% local | ❌ Subida forzada |
-| **🎨 Interfaz** | ✅ Moderna y limpia | ❌ Anticuada |
-| **🌙 Temas** | ✅ Claro y oscuro | ❌ Una sola opción |
+| Feature             | ScreenREC         | Other Recorders            |
+| ------------------- | ----------------- | -------------------------- |
+| **💰 Price**        | ✅ Free Forever   | ❌ Expensive subscriptions |
+| **⏱️ Time limit**   | ✅ Unlimited      | ❌ 5-10 minutes            |
+| **🚫 Ads**          | ✅ Zero ads       | ❌ Annoying ads            |
+| **💧 Watermark**    | ✅ No watermark   | ❌ Annoying logo           |
+| **📱 Installation** | ✅ Browser only   | ❌ Heavy software          |
+| **🔒 Privacy**      | ✅ 100% local     | ❌ Forced upload           |
+| **🎨 Interface**    | ✅ Modern & clean | ❌ Outdated                |
+| **🌙 Themes**       | ✅ Light & dark   | ❌ Only one option         |
 
-## 🚀 **¡Únete a la Revolución ScreenREC!**
+## 🚀 **Join the ScreenREC Revolution!**
 
 <div align="center">
 
-### 🤝 **¿Quieres hacer ScreenREC aún mejor?**
+### 🤝 **Want to Make ScreenREC Even Better?**
 
-[![Contribuir](https://img.shields.io/badge/🚀_Contribuir-Ahora-green?style=for-the-badge)](https://github.com/cristopher-dev/screenREC-dev/fork)
-[![Issues](https://img.shields.io/badge/🐛_Reportar_Bug-Aquí-red?style=for-the-badge)](https://github.com/cristopher-dev/screenREC-dev/issues)
-[![Discussions](https://img.shields.io/badge/💬_Discutir_Ideas-Foro-blue?style=for-the-badge)](https://github.com/cristopher-dev/screenREC-dev/discussions)
+[![Contribute](https://img.shields.io/badge/🚀_Contribute-Now-green?style=for-the-badge)](https://github.com/cristopher-dev/screenREC-dev/fork)
+[![Issues](https://img.shields.io/badge/🐛_Report_Bug-Here-red?style=for-the-badge)](https://github.com/cristopher-dev/screenREC-dev/issues)
+[![Discussions](https://img.shields.io/badge/💬_Discuss_Ideas-Forum-blue?style=for-the-badge)](https://github.com/cristopher-dev/screenREC-dev/discussions)
 
 </div>
 
-### 🎯 **Cómo Contribuir:**
+### 🎯 **How to Contribute:**
 
-1. **🍴 Fork** el proyecto
-2. **🌿 Crea** tu rama de feature: `git checkout -b feature/IncreibleFeature`
-3. **💻 Desarrolla** tu mejora increíble
-4. **✅ Commit** tus cambios: `git commit -m 'Add: IncreibleFeature'`
-5. **🚀 Push** a la rama: `git push origin feature/IncreibleFeature`
-6. **🎉 Abre** un Pull Request
+1. **🍴 Fork** the project
+2. **🌿 Create** your feature branch: `git checkout -b feature/AmazingFeature`
+3. **💻 Develop** your awesome improvement
+4. **✅ Commit** your changes: `git commit -m 'Add: AmazingFeature'`
+5. **🚀 Push** to the branch: `git push origin feature/AmazingFeature`
+6. **🎉 Open** a Pull Request
 
-### 🌟 **Ideas para Contribuir:**
-- 🎨 Nuevos temas y colores
-- 🌍 Traducción a otros idiomas
-- 📱 Soporte para dispositivos móviles
-- 🎛️ Controles avanzados de grabación
-- 🔧 Optimizaciones de performance
-- 🧪 Tests automatizados
+### 🌟 **Ideas to Contribute:**
 
-### 💡 **¿Tienes una idea genial?**
-¡Abre un [Issue](https://github.com/cristopher-dev/screenREC-dev/issues) y cuéntanos!
+- 🎨 New themes and colors
+- 🌍 Translation to other languages
+- 📱 Mobile device support
+- 🎛️ Advanced recording controls
+- 🔧 Performance optimizations
+- 🧪 Automated tests
+
+### 💡 **Got a great idea?**
+
+Open an [Issue](https://github.com/cristopher-dev/screenREC-dev/issues) and tell us!
 
 ---
 
 <div align="center">
 
-## � **Contacto y Links Importantes**
+## � **Contact & Important Links**
 
 [![GitHub](https://img.shields.io/badge/GitHub-cristopher--dev-black?style=for-the-badge&logo=github)](https://github.com/cristopher-dev)
-[![License MIT](https://img.shields.io/badge/📄_Licencia-MIT-green?style=for-the-badge)](LICENSE.md)
-[![Security](https://img.shields.io/badge/🔒_Seguridad-Policy-red?style=for-the-badge)](SECURITY.md)
-[![Privacy](https://img.shields.io/badge/🛡️_Privacidad-Policy-blue?style=for-the-badge)](privacy-policy.md)
+[![License MIT](https://img.shields.io/badge/📄_License-MIT-green?style=for-the-badge)](LICENSE.md)
+[![Security](https://img.shields.io/badge/🔒_Security-Policy-red?style=for-the-badge)](SECURITY.md)
+[![Privacy](https://img.shields.io/badge/🛡️_Privacy-Policy-blue?style=for-the-badge)](privacy-policy.md)
 
-### 👨‍💻 **Creado con ❤️ por SAGNIK SAHOO**
+### 👨‍💻 **Created with ❤️ by SAGNIK SAHOO**
 
-*Desarrollado durante la era COVID-19 para democratizar la grabación de pantalla*
+_Developed during the COVID-19 era to democratize screen recording_
 
-### 🌟 **¿Te gustó ScreenREC?**
+### 🌟 **Did you like ScreenREC?**
 
 <div style="font-size: 1.5em; margin: 20px 0;">
 
-**⭐ ¡Dale una estrella en GitHub!** ⭐
+\*\*⭐ Give us a star on GitHub! ⭐
 
 </div>
 
-Tu apoyo nos motiva a seguir mejorando y mantener ScreenREC gratis para siempre.
+Your support motivates us to keep improving and maintain ScreenREC free forever.
 
-### 🔗 **Enlaces Útiles**
-- 🌐 **[Demo Live](https://screenrec.vercel.app)** - Prueba ahora mismo
-- 📚 **[Documentación](docs/)** - Guías detalladas
-- 🐛 **[Reportar Bugs](https://github.com/cristopher-dev/screenREC-dev/issues)** - Ayúdanos a mejorar
-- 💬 **[Discusiones](https://github.com/cristopher-dev/screenREC-dev/discussions)** - Comparte ideas
-- 🔒 **[Seguridad](SECURITY.md)** - Reporta vulnerabilidades
+### 🔗 **Useful Links**
 
-### 🏆 **Agradecimientos Especiales**
+- 🌐 **[Live Demo](https://screenrec.vercel.app)** - Try it now
+- 📚 **[Documentation](docs/)** - Detailed guides
+- 🐛 **[Report Bugs](https://github.com/cristopher-dev/screenREC-dev/issues)** - Help us improve
+- 💬 **[Discussions](https://github.com/cristopher-dev/screenREC-dev/discussions)** - Share ideas
+- 🔒 **[Security](SECURITY.md)** - Report vulnerabilities
 
-- 🌍 **La comunidad de desarrollo web** por las APIs increíbles
-- 🦠 **La era COVID-19** por enseñarnos la importancia de las herramientas digitales
-- 👥 **Todos los contributores** que han hecho ScreenREC mejor
-- ⭐ **Cada usuario** que usa y recomienda ScreenREC
+### 🏆 **Special Thanks**
+
+- 🌍 **The web development community** for amazing APIs
+- 🦠 **The COVID-19 era** for teaching us the importance of digital tools
+- 👥 **All contributors** who made ScreenREC better
+- ⭐ **Every user** who uses and recommends ScreenREC
 
 ---
 
 <div style="border: 2px solid #4285f4; border-radius: 10px; padding: 20px; background: linear-gradient(45deg, #f0f8ff, #e6f3ff);">
 
-### 🎉 **¡Empezar es Gratis y Toma Solo 30 Segundos!**
+### 🎉 **Getting Started is Free and Takes Only 30 Seconds!**
 
-**[🚀 IR AL DEMO LIVE 🚀](https://screenrec.vercel.app)**
+**[🚀 GO TO LIVE DEMO 🚀](https://screenrec.vercel.app)**
 
-*No se requiere registro • No hay límites • No hay trucos*
+_No registration required • No limits • No tricks_
 
 </div>
 
