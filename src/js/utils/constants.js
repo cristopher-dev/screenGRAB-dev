@@ -41,3 +41,17 @@ export const AUDIO_CONFIG = {
 export const VIDEO_CONFIG = {
   mediaSource: "screen",
 };
+
+// Camera configuration
+export const CAMERA_CONFIG = {
+  DEFAULT: {
+    width: { ideal: 320 },
+    height: { ideal: 240 },
+    facingMode: "user"
+  },
+  HD: {
+    width: { ideal: 640 },
+    height: { ideal: 480 },
+    facingMode: "user"
+  }
+};

@@ -32,6 +32,11 @@ section.sh__recorder
                     li.sh__dropdown__list--item(role="option" data-value="screen-camera" tabindex="-1") 
                         | Grabar pantalla con cámara
 
+            .sh__camera-selector(style="display: none;")
+                label(for="camera-select" class="sh__camera-selector--label") Selecciona tu cámara:
+                select(id="camera-select" class="sh__camera-selector--select")
+                    option(value="" disabled selected) Detectando cámaras...
+
             input(
                 type="text" 
                 class="sh__choice--filename" 

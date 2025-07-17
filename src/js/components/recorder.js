@@ -4,6 +4,7 @@ import {
   MEDIA_RECORDER_CONFIG,
   AUDIO_CONFIG,
   VIDEO_CONFIG,
+  CAMERA_CONFIG,
 } from "../utils/constants";
 import {
   RecorderError,
@@ -25,6 +26,8 @@ export default class ScreenRecorder {
       isPause: false,
       filename: null,
       selectedOption: null,
+      selectedCameraId: null,
+      availableCameras: [],
       screenStream: null,
       microphoneStream: null,
       cameraStream: null,
@@ -64,6 +67,8 @@ export default class ScreenRecorder {
       dropdownChevron: document.querySelector(".sh__dropdown--icon.chevron"),
       headerText: document.querySelector(".sh__header"),
       toast: document.getElementById("toast"),
+      cameraSelector: document.querySelector(".sh__camera-selector"),
+      cameraSelect: document.getElementById("camera-select"),
     };
   }
 
@@ -83,9 +88,73 @@ export default class ScreenRecorder {
       this.elements.start.classList.remove("visible");
     }
 
+    // Show camera selector if screen-camera option is selected
+    if (selectedAttrValue === RECORDING_OPTIONS.SCREEN_CAMERA) {
+      this.showCameraSelector();
+    } else {
+      this.hideCameraSelector();
+    }
+
     this.elements.dropdownDefaultOption.textContent = selectedElement.innerText;
     this.state.mime = selectedAttrValue;
     return selectedAttrValue;
+  }
+
+  async detectAvailableCameras() {
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const videoDevices = devices.filter(device => device.kind === 'videoinput');
+      this.state.availableCameras = videoDevices;
+      return videoDevices;
+    } catch (error) {
+      console.error('Error detecting cameras:', error);
+      return [];
+    }
+  }
+
+  async populateCameraOptions() {
+    const cameras = await this.detectAvailableCameras();
+    const select = this.elements.cameraSelect;
+    
+    // Clear existing options
+    select.innerHTML = '';
+    
+    if (cameras.length === 0) {
+      const option = document.createElement('option');
+      option.value = '';
+      option.textContent = 'No se encontraron cámaras';
+      option.disabled = true;
+      select.appendChild(option);
+      return;
+    }
+    
+    // Add default option
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'Selecciona una cámara';
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    select.appendChild(defaultOption);
+    
+    // Add camera options
+    cameras.forEach((camera, index) => {
+      const option = document.createElement('option');
+      option.value = camera.deviceId;
+      option.textContent = camera.label || `Cámara ${index + 1}`;
+      select.appendChild(option);
+    });
+  }
+
+  showCameraSelector() {
+    this.elements.cameraSelector.style.display = 'block';
+    this.elements.cameraSelector.classList.add('visible');
+    this.populateCameraOptions();
+  }
+
+  hideCameraSelector() {
+    this.elements.cameraSelector.style.display = 'none';
+    this.elements.cameraSelector.classList.remove('visible');
+    this.state.selectedCameraId = null;
   }
 
   getRandomString(length) {
@@ -223,18 +292,23 @@ export default class ScreenRecorder {
   }
 
   async recordScreenAndCamera() {
+    // Check if a camera is selected
+    if (!this.state.selectedCameraId) {
+      throw new Error('Debe seleccionar una cámara antes de grabar');
+    }
+
     // Get screen stream
     const screenStream = await navigator.mediaDevices.getDisplayMedia({
       video: VIDEO_CONFIG,
       audio: AUDIO_CONFIG,
     });
 
-    // Get camera stream
+    // Get camera stream with selected device
     const cameraStream = await navigator.mediaDevices.getUserMedia({
       video: {
+        deviceId: { exact: this.state.selectedCameraId },
         width: { ideal: 320 },
         height: { ideal: 240 },
-        facingMode: "user"
       },
       audio: false // We'll use the screen audio
     });
@@ -447,6 +521,7 @@ export default class ScreenRecorder {
     this.state.screenVideo = null;
     this.state.cameraVideo = null;
     this.state.filename = null;
+    this.state.selectedCameraId = null;
 
     // Close AudioContext if it exists
     if (this.state.audioContext) {
@@ -465,6 +540,9 @@ export default class ScreenRecorder {
     this.elements.recordingName.classList.remove("visible");
     this.elements.stop.classList.remove("visible");
     this.elements.pauseAndResume.classList.remove("visible", "resume", "pause");
+
+    // Hide camera selector
+    this.hideCameraSelector();
 
     // Clear download link
     this.elements.download.href = "";
@@ -514,6 +592,11 @@ export default class ScreenRecorder {
 
     this.elements.recordAgain.addEventListener("click", () => {
       this.resetToInitialState();
+    });
+
+    // Camera selector event listener
+    this.elements.cameraSelect.addEventListener("change", (e) => {
+      this.state.selectedCameraId = e.target.value;
     });
   }
 }
