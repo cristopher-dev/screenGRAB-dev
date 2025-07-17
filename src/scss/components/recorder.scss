@@ -14,9 +14,9 @@
         background: rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(20px);
         border-radius: 24px;
-        padding: 2rem;
+        padding: 3rem;
         margin: 2rem auto;
-        max-width: 600px;
+        max-width: 1400px;
         width: 100%;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -80,11 +80,11 @@
         position: relative;
         display: flex;
         width: 100%;
-        max-width: 400px;
+        max-width: 700px;
         margin-bottom: 1.5rem;
 
         @include mq(md) {
-          max-width: 350px;
+          max-width: 550px;
         }
 
         &--btn {
@@ -530,13 +530,38 @@
 
       &__video {
         height: 100%;
-        max-height: 45vh;
+        max-height: 55vh;
+        
+        @include mq(lg) {
+          max-height: 50vh;
+        }
+        
+        @include mq(md) {
+          max-height: 45vh;
+        }
+        
+        @include mq(sm) {
+          max-height: 40vh;
+        }
         &--wrp {
           position: relative;
-          width: 40%;
+          width: 85%;
+          max-width: 80rem;
+          margin: 0 auto;
 
           @include mq(lg) {
-            max-width: 56rem;
+            width: 75%;
+            max-width: 70rem;
+          }
+
+          @include mq(md) {
+            width: 90%;
+            max-width: 60rem;
+          }
+
+          @include mq(sm) {
+            width: 95%;
+            max-width: none;
           }
 
           .sh {
@@ -650,38 +675,65 @@
             &__download {
               &-btn {
                 position: absolute;
-                bottom: 0%;
-                left: 50%;
-                transform: translate(-50%, 300%);
+                top: 50%;
+                right: -8rem;
+                transform: translateY(-50%);
                 display: flex;
+                flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                padding: 1rem 2.5rem;
+                padding: 1.5rem 2rem;
                 width: auto;
+                min-width: 120px;
                 background: vars.$green;
                 white-space: nowrap;
                 border: 0;
                 border-radius: vars.$default-radius;
                 transition: all 0.8s vars.$bezier-curve;
+                opacity: 0;
+                pointer-events: none;
+
+                @include mq(lg) {
+                  right: -6rem;
+                  padding: 1.2rem 1.5rem;
+                  min-width: 100px;
+                }
+
+                @include mq(md) {
+                  position: static;
+                  transform: none;
+                  margin: 1rem auto 0;
+                  flex-direction: row;
+                }
 
                 &.visible {
                   pointer-events: all;
                   opacity: 1;
-                  transform: translate(-50%, 5rem);
                 }
 
                 &:hover {
-                  transform: translate(-50%, 5rem) scale(0.92);
+                  transform: translateY(-50%) scale(0.95);
+                  
+                  @include mq(md) {
+                    transform: scale(0.95);
+                  }
                 }
 
                 &--icon {
                   max-width: 1.5rem;
-                  margin-right: 0.5rem;
+                  margin-bottom: 0.5rem;
+                  
+                  @include mq(md) {
+                    margin-bottom: 0;
+                    margin-right: 0.5rem;
+                  }
                 }
                 &--text {
                   font-weight: 600;
                   color: vars.$white;
-                  @include fluid-type(768px, 1920px, 14px, 16px);
+                  font-size: 0.9rem;
+                  text-align: center;
+                  @include fluid-type(768px, 1920px, 12px, 14px);
                 }
               }
             }
@@ -689,14 +741,16 @@
             &__record-again {
               &-btn {
                 position: absolute;
-                bottom: 0%;
-                left: 50%;
-                transform: translate(-50%, 300%);
+                top: 50%;
+                right: -8rem;
+                transform: translateY(calc(-50% + 8rem));
                 display: flex;
+                flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                padding: 1rem 2.5rem;
+                padding: 1.5rem 2rem;
                 width: auto;
+                min-width: 120px;
                 background: vars.$primary;
                 white-space: nowrap;
                 border: 0;
@@ -705,25 +759,53 @@
                 opacity: 0;
                 pointer-events: none;
 
+                @include mq(lg) {
+                  right: -6rem;
+                  padding: 1.2rem 1.5rem;
+                  min-width: 100px;
+                  transform: translateY(calc(-50% + 6rem));
+                }
+
+                @include mq(md) {
+                  position: static;
+                  transform: none;
+                  margin: 0.5rem auto 0;
+                  flex-direction: row;
+                }
+
                 &.visible {
                   pointer-events: all;
                   opacity: 1;
-                  transform: translate(-50%, 8.5rem);
                 }
 
                 &:hover {
-                  transform: translate(-50%, 8.5rem) scale(0.92);
+                  transform: translateY(calc(-50% + 8rem)) scale(0.95);
+                  
+                  @include mq(lg) {
+                    transform: translateY(calc(-50% + 6rem)) scale(0.95);
+                  }
+                  
+                  @include mq(md) {
+                    transform: scale(0.95);
+                  }
                 }
 
                 &--icon {
                   max-width: 1.5rem;
-                  margin-right: 0.5rem;
+                  margin-bottom: 0.5rem;
                   filter: brightness(0) saturate(100%) invert(100%);
+                  
+                  @include mq(md) {
+                    margin-bottom: 0;
+                    margin-right: 0.5rem;
+                  }
                 }
                 &--text {
                   font-weight: 600;
                   color: vars.$white;
-                  @include fluid-type(768px, 1920px, 14px, 16px);
+                  font-size: 0.9rem;
+                  text-align: center;
+                  @include fluid-type(768px, 1920px, 12px, 14px);
                 }
               }
             }
