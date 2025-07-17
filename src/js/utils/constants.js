@@ -67,8 +67,8 @@ export const MICROPHONE_CONFIG = {
 
 // Video MIME types in order of preference for compatibility
 export const VIDEO_MIME_TYPES = {
-  MP4_H264: 'video/mp4;codecs=h264,aac',
   MP4_H264_BASELINE: 'video/mp4;codecs=avc1.42E01E,mp4a.40.2',
+  MP4_H264_MAIN: 'video/mp4;codecs=avc1.4D4028,mp4a.40.2',
   MP4_GENERIC: 'video/mp4',
   WEBM_VP8: 'video/webm;codecs=vp8,opus',
   WEBM_VP9: 'video/webm;codecs=vp9,opus',

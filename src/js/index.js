@@ -2,8 +2,21 @@ import screenGRABorder from "./components/recorder";
 import ThemeToggler from "./components/themeToggler";
 import { handleMobileUsers } from "./utils/handleMobileUsers";
 import { initializeUIEnhancements } from "./utils/uiEnhancements";
+import { checkBrowserCompatibility } from "./utils/browserCheck";
 
 window.addEventListener("load", () => {
+  // Verificar compatibilidad del navegador
+  const compatibility = checkBrowserCompatibility();
+  
+  // Mostrar advertencias si hay problemas de compatibilidad
+  if (!compatibility.webAssembly) {
+    console.warn('⚠️ WebAssembly no está disponible. FFmpeg.wasm no funcionará.');
+  }
+  
+  if (!compatibility.sharedArrayBuffer) {
+    console.warn('⚠️ SharedArrayBuffer no está disponible. Se usará la versión single-thread de FFmpeg.wasm.');
+  }
+  
   handleMobileUsers();
   
   // Inicializar mejoras de UI/UX después de que cargue la página

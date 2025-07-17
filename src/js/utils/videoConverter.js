@@ -25,6 +25,42 @@ export default class VideoConverter {
   }
 
   /**
+   * Prueba básica para verificar que FFmpeg.wasm funciona
+   * @returns {Promise<boolean>} - true si funciona correctamente
+   */
+  async testFFmpeg() {
+    try {
+      console.log('🧪 Iniciando prueba de FFmpeg.wasm...');
+      
+      if (!this.isLoaded) {
+        await this.loadFFmpeg();
+      }
+
+      // Crear un archivo de prueba simple
+      const testData = new Uint8Array(1024); // 1KB de datos de prueba
+      testData.fill(0); // Llenar con ceros
+
+      await this.ffmpeg.writeFile('test.txt', testData);
+      console.log('✅ Escritura de archivo de prueba exitosa');
+
+      // Leer el archivo
+      await this.ffmpeg.readFile('test.txt');
+      console.log('✅ Lectura de archivo de prueba exitosa');
+
+      // Limpiar
+      await this.ffmpeg.deleteFile('test.txt');
+      console.log('✅ Limpieza de archivo de prueba exitosa');
+
+      console.log('🎉 FFmpeg.wasm está funcionando correctamente');
+      return true;
+
+    } catch (error) {
+      console.error('❌ Error en la prueba de FFmpeg.wasm:', error);
+      return false;
+    }
+  }
+
+  /**
    * Inicializa FFmpeg.wasm
    */
   async loadFFmpeg() {
@@ -54,8 +90,10 @@ export default class VideoConverter {
 
   async _performLoad() {
     try {
-      // Usar ESM para compatibilidad con Parcel
+      // Usar ESM para compatibilidad con Parcel (según documentación FFmpeg.wasm)
       const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.10/dist/esm';
+      
+      console.log('📥 Descargando FFmpeg.wasm desde:', baseURL);
       
       // Configurar logs para debugging
       this.ffmpeg.on('log', ({ message }) => {

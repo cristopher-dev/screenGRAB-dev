@@ -126,8 +126,8 @@ export default class screenGRABorder {
     // Lista de MIME types ordenados por compatibilidad con reproductores estándar
     const preferredMimeTypes = [
       // Priorizar MP4 para máxima compatibilidad con Windows Media Player
-      VIDEO_MIME_TYPES.MP4_H264,              // MP4 H264 (más compatible con Windows)
-      VIDEO_MIME_TYPES.MP4_H264_BASELINE,     // H.264 baseline profile
+      VIDEO_MIME_TYPES.MP4_H264_BASELINE,     // H.264 baseline profile (más compatible)
+      VIDEO_MIME_TYPES.MP4_H264_MAIN,         // H.264 main profile
       VIDEO_MIME_TYPES.MP4_GENERIC,           // MP4 genérico
       VIDEO_MIME_TYPES.WEBM_VP8,              // VP8 es más estable que VP9
       VIDEO_MIME_TYPES.WEBM_VP9,              // VP9 solo si VP8 no está disponible

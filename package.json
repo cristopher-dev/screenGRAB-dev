@@ -29,5 +29,9 @@
     "parcel": "^2.6.2",
     "prettier": "^2.4.1",
     "sharp": "^0.33.5"
+  },
+  "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2"
   }
 }
