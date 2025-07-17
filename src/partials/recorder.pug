@@ -31,7 +31,6 @@ section.sh__recorder
                     li.sh__dropdown__list--item(role="option" data-value="screen-mic" tabindex="-1") 
                         | Grabar pantalla con audio
 
-            label.sr-only(for="filename") Nombre de la grabación
             input(
                 type="text" 
                 class="sh__choice--filename" 
@@ -81,9 +80,3 @@ section.sh__recorder
             )
                 img(class="sh__download-btn--icon" src="./images/download.svg" alt="" aria-hidden="true")
                 span.sh__download-btn--text Guardar tu Video
-
-        // Textos de ayuda para lectores de pantalla
-        .sr-only
-            p#dropdown-help Usa las flechas arriba/abajo para navegar y Enter para seleccionar
-            p#filename-help El nombre es opcional. Si no lo especificas, se generará automáticamente
-            p#record-help Asegúrate de seleccionar qué tipo de grabación deseas antes de comenzar
